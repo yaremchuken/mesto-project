@@ -5,4 +5,11 @@
   column-gap: 17px;
   row-gap: 20px;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1023px) {
+  .elements {
+    padding: 36px 0 0 0;
+  }
 }
