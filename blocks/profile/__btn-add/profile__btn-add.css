@@ -1,0 +1,20 @@
+.profile__btn-add {
+  margin: auto 0 auto auto;
+  padding: 0;
+  width: 150px;
+  height: 50px;
+  background-color: transparent;
+  background-image: url(../../../images/profile__btn-add.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  outline: none;
+  cursor: pointer;
+  border: 2px solid white;
+  box-sizing: border-box;
+  border-radius: 2px;
+  transition: opacity 0.5s;
+}
+
+.profile__btn-add:hover {
+  opacity: 0.6;
+}

@@ -1,0 +1,9 @@
+.profile__info {
+  margin: 0;
+  padding: 0 0 0 30px;
+  display: grid;
+  height: min-content;
+  align-self: center;
+  row-gap: 16px;
+  column-gap: 18px;
+}
