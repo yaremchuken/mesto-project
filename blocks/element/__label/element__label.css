@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   display: flex;
-  height: 79px;
+  min-height: 79px;
   background-color: white;
   justify-content: space-between;
 }

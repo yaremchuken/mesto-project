@@ -1,15 +1,11 @@
 .elements {
-  margin: 0;
-  padding: 51px 200px 0 200px;
-  display: flex;
-  column-gap: 17px;
-  row-gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
+  margin: 0 auto;
+  padding: 51px 0 0;
+  max-width: 880px;
 }
 
 @media screen and (max-width: 1023px) {
   .elements {
-    padding: 36px 0 0 0;
+    padding: 36px 0 0;
   }
 }

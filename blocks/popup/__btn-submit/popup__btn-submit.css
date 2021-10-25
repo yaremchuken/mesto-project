@@ -8,6 +8,8 @@
   outline: none;
   border-radius: 2px;
   color: white;
+  font-size: 18px;
+  line-height: 22px;
   cursor: pointer;
   transition: opacity 0.5s;
 }
@@ -20,5 +22,7 @@
   .popup__btn-submit {
     margin: 41px 0 25px;
     height: 46px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }
