@@ -44,3 +44,5 @@
 @import url(../blocks/viewer/__caption/viewer__caption.css);
 @import url(../blocks/viewer/__image/viewer__image.css);
 @import url(../blocks/viewer/_opened/viewer_opened.css);
+
+@import url(../blocks/overlay/overlay.css);

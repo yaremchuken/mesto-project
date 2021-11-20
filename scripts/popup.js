@@ -5,6 +5,14 @@ const form = popup.querySelector(".popup__form");
 let callbackMemo;
 
 const openPopup = (heading, submitTitle, submitCallback, ...inputs) => {
+  // Чтобы попап плавно появлялся и пропадал добавил ему transition
+  // при transition visibility 0s после закрытия попапа сразу пропадает,
+  // при transition visibility 0.5s анимация исчезновения появляется при загрузке страницы,
+  // т.ч. добавляем транзакцию только после первого открытия попапа
+  if (!popup.classList.contains("overlay")) {
+    popup.classList.add("overlay");
+  }
+
   popup.querySelector(".popup__input-container").textContent = "";
   popup.querySelector(".popup__heading").textContent = heading;
   popup.querySelector(".popup__btn-submit").textContent = submitTitle;

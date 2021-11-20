@@ -1,27 +1,27 @@
 const initialCards = [
   {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+    name: "Отголоски далёкого прошлого",
+    link: "https://images-assets.nasa.gov/image/PIA09219/PIA09219~medium.jpg",
   },
   {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+    name: "Орион",
+    link: "https://images-assets.nasa.gov/image/PIA04227/PIA04227~small.jpg",
   },
   {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+    name: "Бетельгейзе",
+    link: "https://images-assets.nasa.gov/image/PIA16680/PIA16680~orig.jpg",
   },
   {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+    name: "Андромеда",
+    link: "https://images-assets.nasa.gov/image/PIA15416/PIA15416~medium.jpg",
   },
   {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+    name: "Петля Лебедя",
+    link: "https://images-assets.nasa.gov/image/PIA15415/PIA15415~medium.jpg",
   },
   {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+    name: "Галактика Центавра",
+    link: "https://images-assets.nasa.gov/image/PIA04624/PIA04624~medium.jpg",
   },
 ];
 
