@@ -13,7 +13,7 @@ const openPopup = (heading, submitTitle, submitCallback, ...inputs) => {
     popup.classList.add("overlay");
   }
 
-  popup.querySelector(".popup__input-container").textContent = "";
+  inputsContainer.textContent = "";
   popup.querySelector(".popup__heading").textContent = heading;
   popup.querySelector(".popup__btn-submit").textContent = submitTitle;
 
