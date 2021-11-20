@@ -1,7 +1,10 @@
-.element__image {
+.card__image {
   margin: 0;
   padding: 0;
   height: 282px;
+  width: 100%;
+  object-fit: cover;
   /* чтобы избавиться от странного разрыва под изображением */
   display: flex;
+  cursor: pointer;
 }

@@ -1,0 +1,7 @@
+.viewer__image {
+  margin: auto;
+  padding: 0;
+  display: flex;
+  max-width: 75vw;
+  max-height: 75vh;
+}

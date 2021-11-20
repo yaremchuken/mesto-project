@@ -25,69 +25,39 @@
           <button type="button" class="profile__btn-add"></button>
         </section>
 
-        <section class="elements">
-          <ul class="elements__list">
-            <li class="element">
-              <img src="./images/element__img-karachaevsk.jpg" alt="Карачаевск" class="element__image" />
-              <div class="element__label">
-                <p class="element__title">Карачаевск</p>
-                <button type="button" class="element__btn-like element__btn-like_active"></button>
-              </div>
-            </li>
-
-            <li class="element">
-              <img src="./images/element__img-elbrus.jpg" alt="Гора Эльбрус" class="element__image" />
-              <div class="element__label">
-                <p class="element__title">Гора Эльбрус</p>
-                <button type="button" class="element__btn-like"></button>
-              </div>
-            </li>
-
-            <li class="element">
-              <img src="./images/element__img-dombay.jpg" alt="Домбай" class="element__image" />
-              <div class="element__label">
-                <p class="element__title">Домбай</p>
-                <button type="button" class="element__btn-like"></button>
-              </div>
-            </li>
-
-            <li class="element">
-              <img src="./images/element__img-elbrus.jpg" alt="Гора Эльбрус" class="element__image" />
-              <div class="element__label">
-                <p class="element__title">Гора Эльбрус</p>
-                <button type="button" class="element__btn-like"></button>
-              </div>
-            </li>
-
-            <li class="element">
-              <img src="./images/element__img-dombay.jpg" alt="Домбай" class="element__image" />
-              <div class="element__label">
-                <p class="element__title">Домбай</p>
-                <button type="button" class="element__btn-like"></button>
-              </div>
-            </li>
-
-            <li class="element">
-              <img src="./images/element__img-karachaevsk.jpg" alt="Карачаево-Черкесия" class="element__image" />
-              <div class="element__label">
-                <p class="element__title">Карачаево-Черкесия</p>
-                <button type="button" class="element__btn-like"></button>
-              </div>
-            </li>
-          </ul>
+        <section class="cards">
+          <ul class="cards__list"></ul>
         </section>
       </main>
 
+      <template id="card-template">
+        <li class="card">
+          <img class="card__image" />
+          <button type="button" class="card__btn-remove"></button>
+          <div class="card__label">
+            <p class="card__title"></p>
+            <button type="button" class="card__btn-like"></button>
+          </div>
+        </li>
+      </template>
+
       <section class="popup">
         <div class="popup__container">
-          <h2 class="popup__heading">Редактировать профиль</h2>
+          <h2 class="popup__heading"></h2>
           <form name="popup__form" class="popup__form">
-            <fieldset class="popup__input-container">
-              <input type="text" id="name" name="name" class="popup__input" value="Жак-Ив Кусто" />
-              <input type="text" id="appointment" name="appointment" class="popup__input" value="Исследователь океана" />
-            </fieldset>
-            <button type="submit" class="popup__btn-submit">Сохранить</button>
+            <fieldset class="popup__input-container"></fieldset>
+            <button type="submit" class="popup__btn-submit"></button>
           </form>
+          <button type="button" class="popup__btn-close"></button>
+        </div>
+      </section>
+
+      <section class="viewer">
+        <div class="viewer__container">
+          <figure class="viewer__figure">
+            <img class="viewer__image" />
+            <figcaption class="viewer__caption"></figcaption>
+          </figure>
           <button type="button" class="popup__btn-close"></button>
         </div>
       </section>
@@ -96,5 +66,9 @@
         <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
       </footer>
     </div>
+    <script src="./scripts/popup.js"></script>
+    <script src="./scripts/viewer.js"></script>
+    <script src="./scripts/profile.js"></script>
+    <script src="./scripts/card.js"></script>
   </body>
 </html>

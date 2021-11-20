@@ -1,0 +1,6 @@
+.viewer__container {
+  margin: auto;
+  padding: 0;
+  display: flex;
+  position: relative;
+}
