@@ -4,7 +4,7 @@
 
 - [О проекте](#about)
 - [Назначение](#purpose)
-- [Запуск](#usage)
+- [Gihub Pages](#pages)
 
 ## О проекте <a name = "about"></a>
 
@@ -22,6 +22,6 @@
 - Работа с массивами, функциями, циклами и т.д.
 - Оперирование данными форм через Javascript
 
-## Запуск <a name = "usage"></a>
+## Github Pages <a name = "pages"></a>
 
-Для запуска используйте live-server выполнив в терминале команду **live-server**
+https://yaremchuken.github.io/mesto-project/
