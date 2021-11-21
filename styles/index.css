@@ -38,11 +38,9 @@
 @import url(../blocks/popup/__input-container/popup__input-container.css);
 @import url(../blocks/popup/__input/popup__input.css);
 
-@import url(../blocks/viewer/viewer.css);
 @import url(../blocks/viewer/__container/viewer__container.css);
 @import url(../blocks/viewer/__figure/viewer__figure.css);
 @import url(../blocks/viewer/__caption/viewer__caption.css);
 @import url(../blocks/viewer/__image/viewer__image.css);
-@import url(../blocks/viewer/_opened/viewer_opened.css);
 
 @import url(../blocks/overlay/overlay.css);

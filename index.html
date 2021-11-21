@@ -41,18 +41,35 @@
         </li>
       </template>
 
-      <section class="popup">
+      <section id="profile-popup" class="popup">
         <div class="popup__container">
-          <h2 class="popup__heading"></h2>
+          <h2 class="popup__heading">Редактировать профиль</h2>
           <form name="popup__form" class="popup__form">
-            <fieldset class="popup__input-container"></fieldset>
-            <button type="submit" class="popup__btn-submit"></button>
+            <fieldset class="popup__input-container">
+              <input type="text" id="name" name="name" class="popup__input" />
+              <input type="text" id="appointment" name="appointment" class="popup__input" />
+            </fieldset>
+            <button type="submit" class="popup__btn-submit">Сохранить</button>
           </form>
           <button type="button" class="popup__btn-close"></button>
         </div>
       </section>
 
-      <section class="viewer">
+      <section id="card-popup" class="popup">
+        <div class="popup__container">
+          <h2 class="popup__heading">Новое место</h2>
+          <form name="popup__form" class="popup__form">
+            <fieldset class="popup__input-container">
+              <input type="text" id="title" name="title" class="popup__input" placeholder="Название" />
+              <input type="text" id="link" name="link" class="popup__input" placeholder="Ссылка на картинку" />
+            </fieldset>
+            <button type="submit" class="popup__btn-submit">Создать</button>
+          </form>
+          <button type="button" class="popup__btn-close"></button>
+        </div>
+      </section>
+
+      <section id="viewer-popup" class="popup">
         <div class="viewer__container">
           <figure class="viewer__figure">
             <img class="viewer__image" />
@@ -66,9 +83,6 @@
         <p class="footer__copyright">&#169; 2021 Mesto Russia</p>
       </footer>
     </div>
-    <script src="./scripts/popup.js"></script>
-    <script src="./scripts/viewer.js"></script>
-    <script src="./scripts/profile.js"></script>
-    <script src="./scripts/card.js"></script>
+    <script src="./scripts/script.js"></script>
   </body>
 </html>
