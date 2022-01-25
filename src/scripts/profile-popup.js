@@ -1,6 +1,7 @@
 /** Изменение данных профиля */
 
 import { openPopup, closePopup } from './popup.js';
+import { checkFormValid } from './validator.js';
 
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
@@ -23,6 +24,9 @@ profilePopup.querySelector('.popup__btn-close').addEventListener('click', () => 
 
 profilePopup.querySelector('.popup__form').addEventListener('submit', (e) => {
   e.preventDefault();
+  if (!checkFormValid(e.target)) {
+    return;
+  }
 
   // Скидываем информация из формы обратно в профиль
   profileTitle.textContent = profilePopupName.value;

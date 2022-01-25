@@ -29,8 +29,9 @@ const initialCards = [
   },
 ];
 
+export const cardsHolder = document.querySelector('.cards__list');
+
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
-const cardsHolder = document.querySelector('.cards__list');
 
 // Создание карточки
 export const createCard = (name, link) => {

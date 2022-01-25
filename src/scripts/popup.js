@@ -1,18 +1,32 @@
-import { addCard, createCard } from './card.js';
-
-const cardPopup = document.querySelector('#card-popup');
-const cardPopupTitle = cardPopup.querySelector('#title');
-const cardPopupLink = cardPopup.querySelector('#link');
-
 /** Отображение/скрытие попапа */
+
+import { hideFormErrors, toggleSubmitBtnState } from './validator.js';
+
+document.addEventListener('keyup', (e) => {
+  const popup = document.querySelector('.popup_opened');
+  if (popup) {
+    closePopup(popup);
+  }
+});
+
+document.querySelectorAll('.popup').forEach((popup) => {
+  popup.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (e.target.classList.contains('overlay')) {
+      closePopup(popup);
+    }
+  });
+});
 
 export const openPopup = (popup) => {
   smoothOpening(popup);
+  if (popup.querySelector('.popup__form')) toggleSubmitBtnState(popup.querySelector('.popup__form'));
   popup.classList.add('popup_opened');
 };
 
 export const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+  if (popup.querySelector('.popup__form')) hideFormErrors(popup.querySelector('.popup__form'));
 };
 
 // Чтобы попап плавно появлялся и пропадал добавил ему transition
@@ -24,31 +38,3 @@ const smoothOpening = (popup) => {
     popup.classList.add('overlay');
   }
 };
-
-/** Попап добавления карточки */
-
-document.querySelector('.profile__btn-add').addEventListener('click', () => {
-  // Чистим поля формы если они были заполнены ранее
-  cardPopupTitle.value = '';
-  cardPopupLink.value = '';
-
-  openPopup(cardPopup);
-});
-
-cardPopup.querySelector('.popup__btn-close').addEventListener('click', () => {
-  closePopup(cardPopup);
-});
-
-cardPopup.querySelector('.popup__form').addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  const title = cardPopupTitle.value;
-  const link = cardPopupLink.value;
-
-  // Если форма заполнена правильно, то создаём и добавляем в DOM новую карточку
-  if (title && link) {
-    addCard(cardsHolder, createCard(title, link));
-  } else return;
-
-  closePopup(cardPopup);
-});
