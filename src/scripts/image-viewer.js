@@ -1,6 +1,6 @@
 /** Попап просмотра изображения */
 
-import { openPopup, closePopup } from './popup';
+import { openPopup, closePopup } from './modal';
 
 const viewerPopup = document.querySelector('#viewer-popup');
 const viewerImage = viewerPopup.querySelector('.viewer__image');

@@ -1,7 +1,7 @@
 /** Изменение данных профиля */
 
-import { openPopup, closePopup } from './popup.js';
-import { checkFormValid } from './validator.js';
+import { openPopup, closePopup } from './modal.js';
+import { checkFormValid } from './validate.js';
 
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');

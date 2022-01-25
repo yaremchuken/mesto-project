@@ -1,8 +1,8 @@
 /** Попап добавления карточки */
 
 import { addCard, cardsHolder, createCard } from './card';
-import { closePopup, openPopup } from './popup';
-import { checkFormValid } from './validator';
+import { closePopup, openPopup } from './modal';
+import { checkFormValid } from './validate';
 
 const cardPopup = document.querySelector('#card-popup');
 const cardPopupTitle = cardPopup.querySelector('#title');

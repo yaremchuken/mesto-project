@@ -19,7 +19,7 @@ export const hideFormErrors = (form) => {
 };
 
 // Проверяем инпуты на ошибки, если они есть - выводим в соответствующее поле под инпутом.
-const checkInputValidity = (form, input) => {
+export const checkInputValidity = (form, input) => {
   if (!input.validity.valid) {
     showInputError(form, input, input.validationMessage);
   } else {
@@ -49,18 +49,3 @@ export const toggleSubmitBtnState = (form) => {
     button.classList.remove('button_inactive');
   }
 };
-
-const setEventListeners = (form) => {
-  const inputs = Array.from(form.querySelectorAll('.popup__input'));
-  inputs.forEach((input) => {
-    input.addEventListener('input', () => {
-      checkInputValidity(form, input);
-      // на каждое изменение в импута вешаем проверку активности кнопки формы.
-      toggleSubmitBtnState(form, inputs);
-    });
-  });
-};
-
-(() => {
-  Array.from(document.querySelectorAll('.popup__form')).forEach((form) => setEventListeners(form));
-})();

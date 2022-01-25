@@ -1,22 +1,6 @@
 /** Отображение/скрытие попапа */
 
-import { hideFormErrors, toggleSubmitBtnState } from './validator.js';
-
-document.addEventListener('keyup', (e) => {
-  const popup = document.querySelector('.popup_opened');
-  if (popup) {
-    closePopup(popup);
-  }
-});
-
-document.querySelectorAll('.popup').forEach((popup) => {
-  popup.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (e.target.classList.contains('overlay')) {
-      closePopup(popup);
-    }
-  });
-});
+import { hideFormErrors, toggleSubmitBtnState } from './validate.js';
 
 export const openPopup = (popup) => {
   smoothOpening(popup);
