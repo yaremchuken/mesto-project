@@ -1,5 +1,6 @@
 /** Изменение данных профиля */
 
+import { selectors } from '../index.js';
 import { openPopup, closePopup } from './modal.js';
 import { checkFormValid } from './validate.js';
 
@@ -10,21 +11,13 @@ const profilePopup = document.querySelector('#profile-popup');
 const profilePopupName = profilePopup.querySelector('#name');
 const profilePopupAppointment = profilePopup.querySelector('#appointment');
 
-document.querySelector('.profile__btn-edit').addEventListener('click', () => {
-  // Предзаполняем поля формы информацией из профиля
-  profilePopupName.value = profileTitle.textContent;
-  profilePopupAppointment.value = profileSubtitle.textContent;
-
-  openPopup(profilePopup);
-});
-
 profilePopup.querySelector('.popup__btn-close').addEventListener('click', () => {
   closePopup(profilePopup);
 });
 
 profilePopup.querySelector('.popup__form').addEventListener('submit', (e) => {
   e.preventDefault();
-  if (!checkFormValid(e.target)) {
+  if (!checkFormValid(e.target, selectors)) {
     return;
   }
 
@@ -34,3 +27,11 @@ profilePopup.querySelector('.popup__form').addEventListener('submit', (e) => {
 
   closePopup(profilePopup);
 });
+
+export const handleProfileOpenClick = () => {
+  // Предзаполняем поля формы информацией из профиля
+  profilePopupName.value = profileTitle.textContent;
+  profilePopupAppointment.value = profileSubtitle.textContent;
+
+  openPopup(profilePopup);
+};

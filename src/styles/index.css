@@ -33,11 +33,13 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__btn-close/popup__btn-close.css);
 @import url(../blocks/popup/__btn-submit/popup__btn-submit.css);
+@import url(../blocks/popup/__btn-submit/popup__btn-submit_disabled.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__heading/popup__heading.css);
 @import url(../blocks/popup/__input-container/popup__input-container.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input-error/popup__input-error.css);
+@import url(../blocks/popup/__input-error/popup__input-error_visible.css);
 
 @import url(../blocks/viewer/__container/viewer__container.css);
 @import url(../blocks/viewer/__figure/viewer__figure.css);
@@ -45,5 +47,3 @@
 @import url(../blocks/viewer/__image/viewer__image.css);
 
 @import url(../blocks/overlay/overlay.css);
-
-@import url(../blocks/button/_inactive/button_inactive.css);

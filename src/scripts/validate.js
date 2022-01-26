@@ -1,38 +1,38 @@
-const showInputError = (form, input, errorMsg) => {
-  input.classList.add('popup__input_type_error');
+const showInputError = (form, input, selectors, errorMsg) => {
+  input.classList.add(selectors.inputErrorClass);
 
   const errorEl = form.querySelector(`.${input.id}-input-error`);
   errorEl.textContent = errorMsg;
-  errorEl.classList.add('popup__input-error_active');
+  errorEl.classList.add(selectors.errorClass);
 };
 
-const hideInputError = (form, input) => {
-  input.classList.remove('popup__input_type_error');
+const hideInputError = (form, input, selectors) => {
+  input.classList.remove(selectors.inputErrorClass);
 
   const errorEl = form.querySelector(`.${input.id}-input-error`);
-  errorEl.classList.remove('popup__input-error_active');
+  errorEl.classList.remove(selectors.errorClass);
   errorEl.textContent = '';
 };
 
-export const hideFormErrors = (form) => {
-  Array.from(form.querySelectorAll('.popup__input')).forEach((input) => hideInputError(form, input));
+export const hideFormErrors = (form, selectors) => {
+  Array.from(form.querySelectorAll(selectors.inputSelector)).forEach((input) => hideInputError(form, input, selectors));
 };
 
 // Проверяем инпуты на ошибки, если они есть - выводим в соответствующее поле под инпутом.
-export const checkInputValidity = (form, input) => {
+export const checkInputValidity = (form, input, selectors) => {
   if (!input.validity.valid) {
-    showInputError(form, input, input.validationMessage);
+    showInputError(form, input, selectors, input.validationMessage);
   } else {
-    hideInputError(form, input);
+    hideInputError(form, input, selectors);
   }
 
   return input.validity.valid;
 };
 
 // Проверяем на ошибки всю форму.
-export const checkFormValid = (form) => {
-  return Array.from(form.querySelectorAll('.popup__input'))
-    .map((input) => checkInputValidity(form, input))
+export const checkFormValid = (form, selectors) => {
+  return Array.from(form.querySelectorAll(selectors.inputSelector))
+    .map((input) => checkInputValidity(form, input, selectors))
     .reduce((a, b) => a && b);
 };
 
@@ -40,12 +40,25 @@ export const hasInvalidInput = (inputs) => {
   return inputs.some((input) => !input.validity.valid);
 };
 
-export const toggleSubmitBtnState = (form) => {
-  const button = form.querySelector('.popup__btn-submit');
-  const inputs = Array.from(form.querySelectorAll('.popup__input'));
+export const toggleSubmitBtnState = (form, selectors) => {
+  const button = form.querySelector(selectors.submitButtonSelector);
+  const inputs = Array.from(form.querySelectorAll(selectors.inputSelector));
   if (hasInvalidInput(inputs)) {
-    button.classList.add('button_inactive');
+    button.classList.add(selectors.inactiveButtonClass);
   } else {
-    button.classList.remove('button_inactive');
+    button.classList.remove(selectors.inactiveButtonClass);
   }
+};
+
+export const enableValidation = (selectors) => {
+  document.querySelectorAll(selectors.formSelector).forEach((form) => {
+    const inputs = Array.from(form.querySelectorAll(selectors.inputSelector));
+    inputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        checkInputValidity(form, input, selectors);
+        // на каждое изменение в импута вешаем проверку активности кнопки формы.
+        toggleSubmitBtnState(form, selectors);
+      });
+    });
+  });
 };

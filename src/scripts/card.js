@@ -65,9 +65,6 @@ const toggleLike = (e) => {
   e.target.classList.toggle('card__btn-like_active');
 };
 
-/** Инициализация */
-
-// При первичной загрузке страницы создаём предзаполненные карточки
-(function init() {
+export const initCards = () => {
   initialCards.forEach((card) => addCard(cardsHolder, createCard(card.name, card.link)));
-})();
+};

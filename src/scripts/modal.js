@@ -1,16 +1,17 @@
 /** Отображение/скрытие попапа */
 
+import { selectors } from '../index.js';
 import { hideFormErrors, toggleSubmitBtnState } from './validate.js';
 
 export const openPopup = (popup) => {
   smoothOpening(popup);
-  if (popup.querySelector('.popup__form')) toggleSubmitBtnState(popup.querySelector('.popup__form'));
+  if (popup.querySelector('.popup__form')) toggleSubmitBtnState(popup.querySelector('.popup__form'), selectors);
   popup.classList.add('popup_opened');
 };
 
 export const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
-  if (popup.querySelector('.popup__form')) hideFormErrors(popup.querySelector('.popup__form'));
+  if (popup.querySelector('.popup__form')) hideFormErrors(popup.querySelector('.popup__form'), selectors);
 };
 
 // Чтобы попап плавно появлялся и пропадал добавил ему transition
