@@ -1,4 +1,5 @@
-import { initCards } from './scripts/card';
+import { prepareDatas } from './scripts/api';
+import { handleAvatarOpenClick } from './scripts/avatar-modal';
 import { handleCardModalOpenClick } from './scripts/card-modal';
 import { closePopup } from './scripts/modal';
 import { handleProfileOpenClick } from './scripts/profile-modal';
@@ -37,5 +38,6 @@ document.querySelectorAll('.popup').forEach((popup) => {
 
 document.querySelector('.profile__btn-add').addEventListener('click', handleCardModalOpenClick);
 document.querySelector('.profile__btn-edit').addEventListener('click', handleProfileOpenClick);
+document.querySelector('.profile__avatar-edit').addEventListener('click', handleAvatarOpenClick);
 
-initCards();
+prepareDatas();

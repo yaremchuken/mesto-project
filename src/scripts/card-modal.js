@@ -1,7 +1,7 @@
 /** Попап добавления карточки */
 
 import { selectors } from '..';
-import { addCard, cardsHolder, createCard } from './card';
+import { uploadCard } from './api';
 import { closePopup, openPopup } from './modal';
 import { checkFormValid } from './validate';
 
@@ -21,7 +21,7 @@ cardPopup.querySelector('.popup__form').addEventListener('submit', (e) => {
 
   // Если форма заполнена правильно, то создаём и добавляем в DOM новую карточку
   if (checkFormValid(e.target, selectors)) {
-    addCard(cardsHolder, createCard(title, link));
+    uploadCard(title, link).then((data) => addCard(cardsHolder, createCard(data._id, title, link)));
   } else return;
 
   closePopup(cardPopup);

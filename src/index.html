@@ -13,11 +13,14 @@
 
       <main class="content">
         <section class="profile">
-          <img src="<%=require('./images/profile__avatar.jpeg')%>" alt="Тесла на орбите земли" class="profile__avatar" />
+          <div class="profile__avatar">
+            <img src="<%=require('./images/profile__avatar.jpeg')%>" alt="Профиль пользователя" class="profile__avatar-img" />
+            <div class="profile__avatar-edit"></div>
+          </div>
 
           <div class="profile__info">
-            <h1 class="profile__title">Starman</h1>
-            <p class="profile__subtitle">Без Паники</p>
+            <h1 class="profile__title"></h1>
+            <p class="profile__subtitle"></p>
             <button type="button" class="profile__btn-edit"></button>
           </div>
 
@@ -35,10 +38,27 @@
           <button type="button" class="card__btn-remove"></button>
           <div class="card__label">
             <p class="card__title"></p>
-            <button type="button" class="card__btn-like"></button>
+            <div class="card__likes-holder">
+              <button type="button" class="card__btn-like"></button>
+              <p class="card__likes">0</p>
+            </div>
           </div>
         </li>
       </template>
+
+      <section id="avatar-popup" class="popup">
+        <div class="popup__container">
+          <h2 class="popup__heading">Обновить аватар</h2>
+          <form name="popup__form" class="popup__form" novalidate>
+            <fieldset class="popup__input-container">
+              <input type="url" id="avatar-link" name="avatar-link" class="popup__input" placeholder="Ссылка на аватар" required />
+              <span class="avatar-link-input-error popup__input-error"></span>
+            </fieldset>
+            <button type="submit" class="popup__btn-submit">Сохранить</button>
+          </form>
+          <button type="button" class="popup__btn-close"></button>
+        </div>
+      </section>
 
       <section id="profile-popup" class="popup">
         <div class="popup__container">

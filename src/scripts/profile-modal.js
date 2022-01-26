@@ -1,11 +1,10 @@
 /** Изменение данных профиля */
 
 import { selectors } from '../index.js';
+import { profileSubtitle, profileTitle } from './profile.js';
 import { openPopup, closePopup } from './modal.js';
 import { checkFormValid } from './validate.js';
-
-const profileTitle = document.querySelector('.profile__title');
-const profileSubtitle = document.querySelector('.profile__subtitle');
+import { updateProfile } from './api.js';
 
 const profilePopup = document.querySelector('#profile-popup');
 const profilePopupName = profilePopup.querySelector('#name');
@@ -24,6 +23,8 @@ profilePopup.querySelector('.popup__form').addEventListener('submit', (e) => {
   // Скидываем информация из формы обратно в профиль
   profileTitle.textContent = profilePopupName.value;
   profileSubtitle.textContent = profilePopupAppointment.value;
+
+  updateProfile({ name: profilePopupName.value, about: profilePopupAppointment.value });
 
   closePopup(profilePopup);
 });

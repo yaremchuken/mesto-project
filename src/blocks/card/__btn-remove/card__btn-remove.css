@@ -6,6 +6,7 @@
   right: 20px;
   width: 19px;
   height: 18px;
+  display: none;
   background-image: url(../../../images/card__btn-remove.svg);
   background-size: cover;
   background-color: transparent;

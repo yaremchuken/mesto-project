@@ -1,43 +1,19 @@
 /** Манипуляции с карточками - добавление, удаление, лайки */
 
+import { deleteCard, likeCard, unlikeCard } from './api';
 import { viewImage } from './image-viewer';
-
-const initialCards = [
-  {
-    name: 'Отголоски далёкого прошлого',
-    link: 'https://images-assets.nasa.gov/image/PIA09219/PIA09219~medium.jpg',
-  },
-  {
-    name: 'Орион',
-    link: 'https://images-assets.nasa.gov/image/PIA04227/PIA04227~small.jpg',
-  },
-  {
-    name: 'Бетельгейзе',
-    link: 'https://images-assets.nasa.gov/image/PIA16680/PIA16680~orig.jpg',
-  },
-  {
-    name: 'Андромеда',
-    link: 'https://images-assets.nasa.gov/image/PIA15416/PIA15416~medium.jpg',
-  },
-  {
-    name: 'Петля Лебедя',
-    link: 'https://images-assets.nasa.gov/image/PIA15415/PIA15415~medium.jpg',
-  },
-  {
-    name: 'Галактика Центавра',
-    link: 'https://images-assets.nasa.gov/image/PIA04624/PIA04624~medium.jpg',
-  },
-];
+import { profileId } from './profile';
 
 export const cardsHolder = document.querySelector('.cards__list');
 
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
 // Создание карточки
-export const createCard = (name, link) => {
+export const createCard = (id, name, link, likes, removeable = true) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector('.card__title').textContent = name;
+  cardElement.id = id;
 
   const imgElelemnt = cardElement.querySelector('.card__image');
   imgElelemnt.src = link;
@@ -45,7 +21,16 @@ export const createCard = (name, link) => {
 
   cardElement.querySelector('.card__image').addEventListener('click', () => viewImage(link, name));
   cardElement.querySelector('.card__btn-like').addEventListener('click', toggleLike);
-  cardElement.querySelector('.card__btn-remove').addEventListener('click', dropCard);
+
+  if (likes.find((like) => like._id === profileId)) cardElement.querySelector('.card__btn-like').classList.add('card__btn-like_active');
+
+  reloadLikes(cardElement, likes.length);
+
+  if (removeable) {
+    const removeBtn = cardElement.querySelector('.card__btn-remove');
+    removeBtn.addEventListener('click', (e) => dropCard(e, id));
+    removeBtn.classList.add('card__btn-remove_visible');
+  }
 
   return cardElement;
 };
@@ -56,15 +41,29 @@ export const addCard = (container, cardElement) => {
 };
 
 // Удаление карточки
-const dropCard = (e) => {
-  e.target.closest('.card').remove();
+const dropCard = (e, id) => {
+  deleteCard(id).then((_) => e.target.closest('.card').remove());
 };
 
 // Переключение "лайка"
 const toggleLike = (e) => {
-  e.target.classList.toggle('card__btn-like_active');
+  const card = e.target.closest('.card');
+  if (e.target.classList.contains('card__btn-like_active')) {
+    e.target.classList.remove('card__btn-like_active');
+    unlikeCard(card.id).then((data) => reloadLikes(card, data.likes.length));
+  } else {
+    e.target.classList.add('card__btn-like_active');
+    likeCard(card.id).then((data) => reloadLikes(card, data.likes.length));
+  }
 };
 
-export const initCards = () => {
-  initialCards.forEach((card) => addCard(cardsHolder, createCard(card.name, card.link)));
+const reloadLikes = (card, likes) => {
+  card.querySelector('.card__likes').textContent = likes;
+};
+
+export const initCards = (cards) => {
+  cards.forEach((card) => {
+    const removeable = card.owner._id === profileId;
+    addCard(cardsHolder, createCard(card._id, card.name, card.link, card.likes, removeable));
+  });
 };
