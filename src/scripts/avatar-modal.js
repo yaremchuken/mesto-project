@@ -21,9 +21,13 @@ avatarPopup.querySelector('.popup__form').addEventListener('submit', (e) => {
 
   avatarImg.src = avatarLink.value;
 
-  updateAvatar(avatarLink.value);
+  const submitBtn = e.target.querySelector('.popup__btn-submit');
+  submitBtn.textContent = 'Сохранение...';
 
-  closePopup(avatarPopup);
+  updateAvatar(avatarLink.value).then((_) => {
+    submitBtn.textContent = 'Сохранить';
+    closePopup(avatarPopup);
+  });
 });
 
 export const handleAvatarOpenClick = () => {

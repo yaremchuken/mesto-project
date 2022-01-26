@@ -24,9 +24,13 @@ profilePopup.querySelector('.popup__form').addEventListener('submit', (e) => {
   profileTitle.textContent = profilePopupName.value;
   profileSubtitle.textContent = profilePopupAppointment.value;
 
-  updateProfile({ name: profilePopupName.value, about: profilePopupAppointment.value });
+  const submitBtn = e.target.querySelector('.popup__btn-submit');
+  submitBtn.textContent = 'Сохранение...';
 
-  closePopup(profilePopup);
+  updateProfile({ name: profilePopupName.value, about: profilePopupAppointment.value }).then((_) => {
+    submitBtn.textContent = 'Сохранить';
+    closePopup(profilePopup);
+  });
 });
 
 export const handleProfileOpenClick = () => {

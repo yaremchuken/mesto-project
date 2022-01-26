@@ -2,6 +2,7 @@
 
 import { selectors } from '..';
 import { uploadCard } from './api';
+import { addToHolder, createCard } from './card';
 import { closePopup, openPopup } from './modal';
 import { checkFormValid } from './validate';
 
@@ -19,12 +20,17 @@ cardPopup.querySelector('.popup__form').addEventListener('submit', (e) => {
   const title = cardPopupTitle.value;
   const link = cardPopupLink.value;
 
+  const submitBtn = e.target.querySelector('.popup__btn-submit');
+  submitBtn.textContent = 'Сохранение...';
+
   // Если форма заполнена правильно, то создаём и добавляем в DOM новую карточку
   if (checkFormValid(e.target, selectors)) {
-    uploadCard(title, link).then((data) => addCard(cardsHolder, createCard(data._id, title, link)));
+    uploadCard(title, link).then((data) => {
+      addToHolder(createCard(data._id, title, link));
+      submitBtn.textContent = 'Сохранить';
+      closePopup(cardPopup);
+    });
   } else return;
-
-  closePopup(cardPopup);
 });
 
 export const handleCardModalOpenClick = () => {

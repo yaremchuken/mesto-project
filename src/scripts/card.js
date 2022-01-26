@@ -4,8 +4,7 @@ import { deleteCard, likeCard, unlikeCard } from './api';
 import { viewImage } from './image-viewer';
 import { profileId } from './profile';
 
-export const cardsHolder = document.querySelector('.cards__list');
-
+const cardsHolder = document.querySelector('.cards__list');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
 // Создание карточки
@@ -22,9 +21,11 @@ export const createCard = (id, name, link, likes, removeable = true) => {
   cardElement.querySelector('.card__image').addEventListener('click', () => viewImage(link, name));
   cardElement.querySelector('.card__btn-like').addEventListener('click', toggleLike);
 
-  if (likes.find((like) => like._id === profileId)) cardElement.querySelector('.card__btn-like').classList.add('card__btn-like_active');
+  if (likes?.find((like) => like._id === profileId)) {
+    cardElement.querySelector('.card__btn-like').classList.add('card__btn-like_active');
+  }
 
-  reloadLikes(cardElement, likes.length);
+  reloadLikes(cardElement, likes?.length ?? 0);
 
   if (removeable) {
     const removeBtn = cardElement.querySelector('.card__btn-remove');
@@ -38,6 +39,10 @@ export const createCard = (id, name, link, likes, removeable = true) => {
 // Добавление карточки в компонент
 export const addCard = (container, cardElement) => {
   container.prepend(cardElement);
+};
+
+export const addToHolder = (cardElement) => {
+  addCard(cardsHolder, cardElement);
 };
 
 // Удаление карточки

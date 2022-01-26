@@ -27,15 +27,11 @@ export const prepareDatas = () => {
 };
 
 export const updateProfile = (profileData) => {
-  api(`${baseUrl}/users/me`, 'PATCH', profileData).then((data) => {
-    profileId = data._id;
-  });
+  return api(`${baseUrl}/users/me`, 'PATCH', profileData);
 };
 
 export const updateAvatar = (avatar) => {
-  api(`${baseUrl}/users/me/avatar`, 'PATCH', { avatar }).then((data) => {
-    profileId = data._id;
-  });
+  return api(`${baseUrl}/users/me/avatar`, 'PATCH', { avatar });
 };
 
 export const uploadCard = (name, link) => {
