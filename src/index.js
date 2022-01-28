@@ -3,6 +3,7 @@ import { handleAvatarOpenClick } from './scripts/avatar-modal';
 import { handleCardModalOpenClick } from './scripts/card-modal';
 import { closePopup } from './scripts/modal';
 import { handleProfileOpenClick } from './scripts/profile-modal';
+import { showError } from './scripts/utils';
 import { enableValidation } from './scripts/validate';
 import './styles/index.css';
 
@@ -17,20 +18,12 @@ export const selectors = {
 
 enableValidation(selectors);
 
-document.addEventListener('keyup', (e) => {
-  if (e.key !== 'Escape') {
-    return;
-  }
-  const popup = document.querySelector('.popup_opened');
-  if (popup) {
-    closePopup(popup);
-  }
-});
-
 document.querySelectorAll('.popup').forEach((popup) => {
-  popup.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (e.target.classList.contains('overlay')) {
+  popup.addEventListener('mousedown', (e) => {
+    if (e.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    }
+    if (e.target.classList.contains('popup__btn-close')) {
       closePopup(popup);
     }
   });
@@ -40,4 +33,4 @@ document.querySelector('.profile__btn-add').addEventListener('click', handleCard
 document.querySelector('.profile__btn-edit').addEventListener('click', handleProfileOpenClick);
 document.querySelector('.profile__avatar-edit').addEventListener('click', handleAvatarOpenClick);
 
-prepareDatas();
+prepareDatas().catch(showError);

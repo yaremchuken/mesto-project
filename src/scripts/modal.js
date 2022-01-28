@@ -1,25 +1,20 @@
 /** Отображение/скрытие попапа */
 
-import { selectors } from '../index.js';
-import { hideFormErrors, toggleSubmitBtnState } from './validate.js';
-
 export const openPopup = (popup) => {
-  smoothOpening(popup);
-  if (popup.querySelector('.popup__form')) toggleSubmitBtnState(popup.querySelector('.popup__form'), selectors);
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 };
 
 export const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
-  if (popup.querySelector('.popup__form')) hideFormErrors(popup.querySelector('.popup__form'), selectors);
+  document.removeEventListener('keydown', closeByEscape);
 };
 
-// Чтобы попап плавно появлялся и пропадал добавил ему transition
-// при transition visibility 0s после закрытия попап сразу пропадает,
-// при transition visibility 0.5s анимация исчезновения появляется при загрузке страницы,
-// т.ч. добавляем транзакцию только после первого открытия попапа
-const smoothOpening = (popup) => {
-  if (!popup.classList.contains('overlay')) {
-    popup.classList.add('overlay');
+const closeByEscape = (evt) => {
+  if (evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
+    if (popup) {
+      closePopup(popup);
+    }
   }
 };

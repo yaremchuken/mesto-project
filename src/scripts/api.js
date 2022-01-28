@@ -1,5 +1,5 @@
-import { initProfile, profileId } from './profile';
 import { initCards } from './card';
+import { initProfile } from './profile';
 
 const baseUrl = 'https://nomoreparties.co/v1/plus-cohort-6';
 
@@ -20,7 +20,7 @@ const api = (url, method = 'GET', body) => {
 };
 
 export const prepareDatas = () => {
-  api(`${baseUrl}/users/me`)
+  return api(`${baseUrl}/users/me`)
     .then((data) => initProfile(data))
     .then((_) => api(`${baseUrl}/cards`))
     .then((data) => initCards(data));
