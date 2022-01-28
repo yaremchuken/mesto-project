@@ -1,6 +1,6 @@
 /** Изменение данных профиля */
 
-import { selectors } from '../index.js';
+import { selectors } from './index.js';
 import { updateProfile } from './api.js';
 import { openPopup } from './modal.js';
 import { profileSubtitle, profileTitle } from './profile.js';

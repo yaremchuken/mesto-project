@@ -1,11 +1,11 @@
-import { prepareDatas } from './scripts/api';
-import { handleAvatarOpenClick } from './scripts/avatar-modal';
-import { handleCardModalOpenClick } from './scripts/card-modal';
-import { closePopup } from './scripts/modal';
-import { handleProfileOpenClick } from './scripts/profile-modal';
-import { showError } from './scripts/utils';
-import { enableValidation } from './scripts/validate';
-import './styles/index.css';
+import { prepareDatas } from './api';
+import { handleAvatarOpenClick } from './avatar-modal';
+import { handleCardModalOpenClick } from './card-modal';
+import { closePopup } from './modal';
+import { handleProfileOpenClick } from './profile-modal';
+import { showError } from './utils';
+import { enableValidation } from './validate';
+import '../styles/index.css';
 
 export const selectors = {
   formSelector: '.popup__form',

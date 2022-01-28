@@ -1,6 +1,6 @@
 /** Изменение аватара */
 
-import { selectors } from '../index.js';
+import { selectors } from './index.js';
 import { updateAvatar } from './api.js';
 import { openPopup } from './modal.js';
 import { performOnPopupClose, showError } from './utils.js';

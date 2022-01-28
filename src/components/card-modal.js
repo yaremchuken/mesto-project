@@ -1,6 +1,6 @@
 /** Попап добавления карточки */
 
-import { selectors } from '..';
+import { selectors } from '.';
 import { uploadCard } from './api';
 import { addToHolder, createCard } from './card';
 import { openPopup } from './modal';
