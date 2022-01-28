@@ -45,8 +45,10 @@ export const toggleSubmitBtnState = (form, selectors) => {
   const inputs = Array.from(form.querySelectorAll(selectors.inputSelector));
   if (hasInvalidInput(inputs)) {
     button.classList.add(selectors.inactiveButtonClass);
+    button.disabled = true;
   } else {
     button.classList.remove(selectors.inactiveButtonClass);
+    button.disabled = false;
   }
 };
 

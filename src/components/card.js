@@ -3,6 +3,7 @@
 import { deleteCard, likeCard, unlikeCard } from './api';
 import { viewImage } from './image-viewer';
 import { profileId } from './profile';
+import { showError } from './utils';
 
 const cardsHolder = document.querySelector('.cards__list');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
@@ -17,8 +18,8 @@ export const createCard = (id, name, link, likes, removeable = true) => {
   const imgElelemnt = cardElement.querySelector('.card__image');
   imgElelemnt.src = link;
   imgElelemnt.alt = name;
+  imgElelemnt.addEventListener('click', () => viewImage(link, name));
 
-  cardElement.querySelector('.card__image').addEventListener('click', () => viewImage(link, name));
   cardElement.querySelector('.card__btn-like').addEventListener('click', toggleLike);
 
   if (likes?.find((like) => like._id === profileId)) {
@@ -47,7 +48,9 @@ export const addToHolder = (cardElement) => {
 
 // Удаление карточки
 const dropCard = (e, id) => {
-  deleteCard(id).then((_) => e.target.closest('.card').remove());
+  deleteCard(id)
+    .then((_) => e.target.closest('.card').remove())
+    .catch(showError);
 };
 
 // Переключение "лайка"
@@ -55,10 +58,14 @@ const toggleLike = (e) => {
   const card = e.target.closest('.card');
   if (e.target.classList.contains('card__btn-like_active')) {
     e.target.classList.remove('card__btn-like_active');
-    unlikeCard(card.id).then((data) => reloadLikes(card, data.likes.length));
+    unlikeCard(card.id)
+      .then((data) => reloadLikes(card, data.likes.length))
+      .catch(showError);
   } else {
     e.target.classList.add('card__btn-like_active');
-    likeCard(card.id).then((data) => reloadLikes(card, data.likes.length));
+    likeCard(card.id)
+      .then((data) => reloadLikes(card, data.likes.length))
+      .catch(showError);
   }
 };
 

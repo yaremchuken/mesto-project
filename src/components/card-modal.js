@@ -1,20 +1,18 @@
 /** Попап добавления карточки */
 
-import { selectors } from '..';
+import { selectors } from '.';
 import { uploadCard } from './api';
 import { addToHolder, createCard } from './card';
-import { closePopup, openPopup } from './modal';
-import { checkFormValid } from './validate';
+import { openPopup } from './modal';
+import { performOnPopupClose, showError } from './utils';
+import { checkFormValid, toggleSubmitBtnState } from './validate';
 
 const cardPopup = document.querySelector('#card-popup');
 const cardPopupTitle = cardPopup.querySelector('#title');
 const cardPopupLink = cardPopup.querySelector('#link');
+const form = cardPopup.querySelector('.popup__form');
 
-cardPopup.querySelector('.popup__btn-close').addEventListener('click', () => {
-  closePopup(cardPopup);
-});
-
-cardPopup.querySelector('.popup__form').addEventListener('submit', (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const title = cardPopupTitle.value;
@@ -25,11 +23,12 @@ cardPopup.querySelector('.popup__form').addEventListener('submit', (e) => {
 
   // Если форма заполнена правильно, то создаём и добавляем в DOM новую карточку
   if (checkFormValid(e.target, selectors)) {
-    uploadCard(title, link).then((data) => {
-      addToHolder(createCard(data._id, title, link));
-      submitBtn.textContent = 'Сохранить';
-      closePopup(cardPopup);
-    });
+    uploadCard(title, link)
+      .then((data) => {
+        addToHolder(createCard(data._id, title, link));
+        performOnPopupClose(cardPopup, submitBtn, selectors);
+      })
+      .catch(showError);
   } else return;
 });
 
@@ -38,5 +37,6 @@ export const handleCardModalOpenClick = () => {
   cardPopupTitle.value = '';
   cardPopupLink.value = '';
 
+  toggleSubmitBtnState(form, selectors);
   openPopup(cardPopup);
 };
