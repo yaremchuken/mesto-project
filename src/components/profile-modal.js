@@ -1,7 +1,7 @@
 /** Изменение данных профиля */
 
-import { selectors } from './index.js';
 import { updateProfile } from './api.js';
+import { selectors } from './constants.js';
 import { openPopup } from './modal.js';
 import { profileSubtitle, profileTitle } from './profile.js';
 import { performOnPopupClose, showError } from './utils.js';
@@ -19,16 +19,17 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
-  // Скидываем информация из формы обратно в профиль
-  profileTitle.textContent = profilePopupName.value;
-  profileSubtitle.textContent = profilePopupAppointment.value;
-
-  const submitBtn = e.target.querySelector('.popup__btn-submit');
+  const submitBtn = e.submitter;
   submitBtn.textContent = 'Сохранение...';
 
   updateProfile({ name: profilePopupName.value, about: profilePopupAppointment.value })
-    .then((_) => performOnPopupClose(profilePopup, submitBtn, selectors))
-    .catch(showError);
+    .then((_) => {
+      profileTitle.textContent = profilePopupName.value;
+      profileSubtitle.textContent = profilePopupAppointment.value;
+      performOnPopupClose(profilePopup, selectors);
+    })
+    .catch(showError)
+    .finally(() => (submitBtn.textContent = 'Сохранить'));
 });
 
 export const handleProfileOpenClick = () => {

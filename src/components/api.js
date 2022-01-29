@@ -1,10 +1,7 @@
-import { initCards } from './card';
-import { initProfile } from './profile';
-
 const baseUrl = 'https://nomoreparties.co/v1/plus-cohort-6';
 
-const api = (url, method = 'GET', body) => {
-  return fetch(url, {
+const makeRequest = (path, method = 'GET', body) => {
+  return fetch(`${baseUrl}${path}`, {
     method,
     headers: {
       authorization: 'c677fa90-7905-4374-86f2-1b0b7555aa56',
@@ -19,33 +16,34 @@ const api = (url, method = 'GET', body) => {
   });
 };
 
-export const prepareDatas = () => {
-  return api(`${baseUrl}/users/me`)
-    .then((data) => initProfile(data))
-    .then((_) => api(`${baseUrl}/cards`))
-    .then((data) => initCards(data));
+export const getProfile = () => {
+  return makeRequest(`/users/me`);
+};
+
+export const getCards = () => {
+  return makeRequest(`/cards`);
 };
 
 export const updateProfile = (profileData) => {
-  return api(`${baseUrl}/users/me`, 'PATCH', profileData);
+  return makeRequest(`/users/me`, 'PATCH', profileData);
 };
 
 export const updateAvatar = (avatar) => {
-  return api(`${baseUrl}/users/me/avatar`, 'PATCH', { avatar });
+  return makeRequest(`/users/me/avatar`, 'PATCH', { avatar });
 };
 
 export const uploadCard = (name, link) => {
-  return api(`${baseUrl}/cards`, 'POST', { name, link });
+  return makeRequest(`/cards`, 'POST', { name, link });
 };
 
 export const deleteCard = (cardId) => {
-  return api(`${baseUrl}/cards/${cardId}`, 'DELETE');
+  return makeRequest(`/cards/${cardId}`, 'DELETE');
 };
 
 export const likeCard = (cardId) => {
-  return api(`${baseUrl}/cards/likes/${cardId}`, 'PUT');
+  return makeRequest(`/cards/likes/${cardId}`, 'PUT');
 };
 
 export const unlikeCard = (cardId) => {
-  return api(`${baseUrl}/cards/likes/${cardId}`, 'DELETE');
+  return makeRequest(`/cards/likes/${cardId}`, 'DELETE');
 };

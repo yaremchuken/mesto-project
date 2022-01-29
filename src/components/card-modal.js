@@ -1,11 +1,11 @@
 /** Попап добавления карточки */
 
-import { selectors } from '.';
 import { uploadCard } from './api';
 import { addToHolder, createCard } from './card';
 import { openPopup } from './modal';
 import { performOnPopupClose, showError } from './utils';
 import { checkFormValid, toggleSubmitBtnState } from './validate';
+import { selectors } from './constants';
 
 const cardPopup = document.querySelector('#card-popup');
 const cardPopupTitle = cardPopup.querySelector('#title');
@@ -18,7 +18,7 @@ form.addEventListener('submit', (e) => {
   const title = cardPopupTitle.value;
   const link = cardPopupLink.value;
 
-  const submitBtn = e.target.querySelector('.popup__btn-submit');
+  const submitBtn = e.submitter;
   submitBtn.textContent = 'Сохранение...';
 
   // Если форма заполнена правильно, то создаём и добавляем в DOM новую карточку
@@ -26,9 +26,10 @@ form.addEventListener('submit', (e) => {
     uploadCard(title, link)
       .then((data) => {
         addToHolder(createCard(data._id, title, link));
-        performOnPopupClose(cardPopup, submitBtn, selectors);
+        performOnPopupClose(profilePopup, selectors);
       })
-      .catch(showError);
+      .catch(showError)
+      .finally(() => (submitBtn.textContent = 'Сохранить'));
   } else return;
 });
 
