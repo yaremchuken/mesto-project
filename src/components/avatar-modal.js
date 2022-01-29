@@ -1,7 +1,7 @@
 /** Изменение аватара */
 
-import { selectors } from './index.js';
 import { updateAvatar } from './api.js';
+import { selectors } from './constants.js';
 import { openPopup } from './modal.js';
 import { performOnPopupClose, showError } from './utils.js';
 import { checkFormValid, toggleSubmitBtnState } from './validate.js';
@@ -18,14 +18,16 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
-  avatarImg.src = avatarLink.value;
-
-  const submitBtn = e.target.querySelector('.popup__btn-submit');
+  const submitBtn = e.submitter;
   submitBtn.textContent = 'Сохранение...';
 
   updateAvatar(avatarLink.value)
-    .then((_) => performOnPopupClose(avatarPopup, submitBtn, selectors))
-    .catch(showError);
+    .then((_) => {
+      avatarImg.src = avatarLink.value;
+      performOnPopupClose(avatarPopup, selectors);
+    })
+    .catch(showError)
+    .finally(() => (submitBtn.textContent = 'Сохранить'));
 });
 
 export const handleAvatarOpenClick = () => {
