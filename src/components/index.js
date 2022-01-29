@@ -27,7 +27,7 @@ document.querySelector('.profile__btn-add').addEventListener('click', handleCard
 document.querySelector('.profile__btn-edit').addEventListener('click', handleProfileOpenClick);
 document.querySelector('.profile__avatar-edit').addEventListener('click', handleAvatarOpenClick);
 
-Promise.all([getProfile, getCards])
+Promise.all([getProfile(), getCards()])
   .then(([profile, cards]) => {
     initProfile(profile);
     initCards(cards);

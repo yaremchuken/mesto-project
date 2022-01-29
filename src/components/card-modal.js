@@ -26,7 +26,7 @@ form.addEventListener('submit', (e) => {
     uploadCard(title, link)
       .then((data) => {
         addToHolder(createCard(data._id, title, link));
-        performOnPopupClose(profilePopup, selectors);
+        performOnPopupClose(cardPopup, selectors);
       })
       .catch(showError)
       .finally(() => (submitBtn.textContent = 'Сохранить'));

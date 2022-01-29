@@ -24,7 +24,7 @@ form.addEventListener('submit', (e) => {
   updateAvatar(avatarLink.value)
     .then((_) => {
       avatarImg.src = avatarLink.value;
-      performOnPopupClose(profilePopup, selectors);
+      performOnPopupClose(avatarPopup, selectors);
     })
     .catch(showError)
     .finally(() => (submitBtn.textContent = 'Сохранить'));
