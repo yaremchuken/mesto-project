@@ -1,6 +1,6 @@
 /** Манипуляции с карточками - добавление, удаление, лайки */
 
-import { deleteCard, likeCard, unlikeCard } from './api';
+import api from './Api';
 import { viewImage } from './image-viewer';
 import { profileId } from './profile';
 import { showError } from './utils';
@@ -48,7 +48,8 @@ export const addToHolder = (cardElement) => {
 
 // Удаление карточки
 const dropCard = (e, id) => {
-  deleteCard(id)
+  api
+    .deleteCard(id)
     .then((_) => e.target.closest('.card').remove())
     .catch(showError);
 };
@@ -57,14 +58,16 @@ const dropCard = (e, id) => {
 const toggleLike = (e) => {
   const card = e.target.closest('.card');
   if (e.target.classList.contains('card__btn-like_active')) {
-    unlikeCard(card.id)
+    api
+      .unlikeCard(card.id)
       .then((data) => {
         e.target.classList.remove('card__btn-like_active');
         reloadLikes(card, data.likes.length);
       })
       .catch(showError);
   } else {
-    likeCard(card.id)
+    api
+      .likeCard(card.id)
       .then((data) => {
         e.target.classList.add('card__btn-like_active');
         reloadLikes(card, data.likes.length);

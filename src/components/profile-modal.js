@@ -1,6 +1,6 @@
 /** Изменение данных профиля */
 
-import { updateProfile } from './api.js';
+import api from './Api';
 import { selectors } from './constants.js';
 import { openPopup } from './modal.js';
 import { profileSubtitle, profileTitle } from './profile.js';
@@ -22,7 +22,8 @@ form.addEventListener('submit', (e) => {
   const submitBtn = e.submitter;
   submitBtn.textContent = 'Сохранение...';
 
-  updateProfile({ name: profilePopupName.value, about: profilePopupAppointment.value })
+  api
+    .updateProfile({ name: profilePopupName.value, about: profilePopupAppointment.value })
     .then((_) => {
       profileTitle.textContent = profilePopupName.value;
       profileSubtitle.textContent = profilePopupAppointment.value;

@@ -1,6 +1,6 @@
 /** Попап добавления карточки */
 
-import { uploadCard } from './api';
+import api from './Api';
 import { addToHolder, createCard } from './card';
 import { openPopup } from './modal';
 import { performOnPopupClose, showError } from './utils';
@@ -23,7 +23,8 @@ form.addEventListener('submit', (e) => {
 
   // Если форма заполнена правильно, то создаём и добавляем в DOM новую карточку
   if (checkFormValid(e.target, selectors)) {
-    uploadCard(title, link)
+    api
+      .uploadCard(title, link)
       .then((data) => {
         addToHolder(createCard(data._id, title, link));
         performOnPopupClose(cardPopup, selectors);

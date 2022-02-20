@@ -1,6 +1,6 @@
 /** Изменение аватара */
 
-import { updateAvatar } from './api.js';
+import api from './Api';
 import { selectors } from './constants.js';
 import { openPopup } from './modal.js';
 import { performOnPopupClose, showError } from './utils.js';
@@ -21,7 +21,8 @@ form.addEventListener('submit', (e) => {
   const submitBtn = e.submitter;
   submitBtn.textContent = 'Сохранение...';
 
-  updateAvatar(avatarLink.value)
+  api
+    .updateAvatar(avatarLink.value)
     .then((_) => {
       avatarImg.src = avatarLink.value;
       performOnPopupClose(avatarPopup, selectors);

@@ -1,5 +1,5 @@
 import '../styles/index.css';
-import { getCards, getProfile } from './api';
+import api from './Api';
 import { handleAvatarOpenClick } from './avatar-modal';
 import { initCards } from './card';
 import { handleCardModalOpenClick } from './card-modal';
@@ -27,7 +27,7 @@ document.querySelector('.profile__btn-add').addEventListener('click', handleCard
 document.querySelector('.profile__btn-edit').addEventListener('click', handleProfileOpenClick);
 document.querySelector('.profile__avatar-edit').addEventListener('click', handleAvatarOpenClick);
 
-Promise.all([getProfile(), getCards()])
+Promise.all([api.getProfile(), api.getCards()])
   .then(([profile, cards]) => {
     initProfile(profile);
     initCards(cards);
