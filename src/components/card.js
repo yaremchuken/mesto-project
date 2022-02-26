@@ -1,7 +1,7 @@
 /** Манипуляции с карточками - добавление, удаление, лайки */
 
 import api from './Api';
-import { viewImage } from './image-viewer';
+// import { viewImage } from './image-viewer';
 import { profileId } from './profile';
 import { showError } from './utils';
 
@@ -9,7 +9,7 @@ const cardsHolder = document.querySelector('.cards__list');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
 // Создание карточки
-export const createCard = (id, name, link, likes, disposable = true) => {
+export const createCard = (id, name, link, likes, viewer, disposable = true) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector('.card__title').textContent = name;
@@ -18,7 +18,7 @@ export const createCard = (id, name, link, likes, disposable = true) => {
   const imgElelemnt = cardElement.querySelector('.card__image');
   imgElelemnt.src = link;
   imgElelemnt.alt = name;
-  imgElelemnt.addEventListener('click', () => viewImage(link, name));
+  imgElelemnt.addEventListener('click', () => viewer.open(link, name));
 
   cardElement.querySelector('.card__btn-like').addEventListener('click', toggleLike);
 
@@ -80,9 +80,9 @@ const reloadLikes = (card, likes) => {
   card.querySelector('.card__likes').textContent = likes;
 };
 
-export const initCards = (cards) => {
+export const initCards = (cards, viewer) => {
   cards.forEach((card) => {
     const disposable = card.owner._id === profileId;
-    addCard(cardsHolder, createCard(card._id, card.name, card.link, card.likes, disposable));
+    addCard(cardsHolder, createCard(card._id, card.name, card.link, card.likes, viewer, disposable));
   });
 };

@@ -65,9 +65,18 @@
           <h2 class="popup__heading">Редактировать профиль</h2>
           <form name="popup__form" class="popup__form" novalidate>
             <fieldset class="popup__input-container">
-              <input type="text" id="name" name="name" class="popup__input" required minlength="2" maxlength="40" />
+              <input type="text" id="name" name="name" class="popup__input" placeholder="Имя" required minlength="2" maxlength="40" />
               <span class="name-input-error popup__input-error"></span>
-              <input type="text" id="appointment" name="appointment" class="popup__input" required minlength="2" maxlength="200" />
+              <input
+                type="text"
+                id="appointment"
+                name="appointment"
+                class="popup__input"
+                placeholder="Профессия"
+                required
+                minlength="2"
+                maxlength="200"
+              />
               <span class="appointment-input-error popup__input-error"></span>
             </fieldset>
             <button type="submit" class="popup__btn-submit">Сохранить</button>
