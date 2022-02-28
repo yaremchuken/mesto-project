@@ -17,20 +17,20 @@ class Api {
     });
   };
 
-  getProfile = () => {
+  updateAvatar = (avatar) => {
+    return this._makeRequest(`/users/me/avatar`, 'PATCH', { avatar });
+  };
+
+  getUserInfo = () => {
     return this._makeRequest(`/users/me`);
+  };
+
+  updateUserInfo = (userInfo) => {
+    return this._makeRequest(`/users/me`, 'PATCH', userInfo);
   };
 
   getCards = () => {
     return this._makeRequest(`/cards`);
-  };
-
-  updateProfile = (profileData) => {
-    return this._makeRequest(`/users/me`, 'PATCH', profileData);
-  };
-
-  updateAvatar = (avatar) => {
-    return this._makeRequest(`/users/me/avatar`, 'PATCH', { avatar });
   };
 
   uploadCard = (name, link) => {

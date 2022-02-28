@@ -1,8 +1,7 @@
 /** Манипуляции с карточками - добавление, удаление, лайки */
 
 import api from './Api';
-// import { viewImage } from './image-viewer';
-import { profileId } from './profile';
+import userInfo from './UserInfo';
 import { showError } from './utils';
 
 const cardsHolder = document.querySelector('.cards__list');
@@ -22,7 +21,7 @@ export const createCard = (id, name, link, likes, viewer, disposable = true) => 
 
   cardElement.querySelector('.card__btn-like').addEventListener('click', toggleLike);
 
-  if (likes?.find((like) => like._id === profileId)) {
+  if (likes?.find((like) => like._id === userInfo.getUserId())) {
     cardElement.querySelector('.card__btn-like').classList.add('card__btn-like_active');
   }
 
@@ -80,9 +79,9 @@ const reloadLikes = (card, likes) => {
   card.querySelector('.card__likes').textContent = likes;
 };
 
-export const initCards = (cards, viewer) => {
+export const initCards = (cards, viewer, userId) => {
   cards.forEach((card) => {
-    const disposable = card.owner._id === profileId;
+    const disposable = card.owner._id === userId;
     addCard(cardsHolder, createCard(card._id, card.name, card.link, card.likes, viewer, disposable));
   });
 };

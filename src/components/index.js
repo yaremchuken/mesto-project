@@ -4,7 +4,7 @@ import { addToHolder, createCard, initCards } from './card';
 import { selectors } from './constants';
 import PopupWithForm from './PopupWithForm';
 import PopupWithImage from './PopupWithImage';
-import { initProfile, profileSubtitle, profileTitle } from './profile';
+import userInfo from './UserInfo';
 import { showError } from './utils';
 import { enableValidation } from './validate';
 
@@ -25,10 +25,7 @@ const profilePopup = new PopupWithForm('#profile-popup', (popupSelector) => {
   const name = popup.querySelector('#name');
   const appointment = popup.querySelector('#appointment');
 
-  return api.updateProfile({ name: name.value, about: appointment.value }).then(() => {
-    profileTitle.textContent = name.value;
-    profileSubtitle.textContent = appointment.value;
-  });
+  return userInfo.setUserInfo({ name: name.value, about: appointment.value });
 });
 
 const cardPopup = new PopupWithForm('#card-popup', (popupSelector) => {
@@ -45,9 +42,9 @@ document.querySelector('.profile__avatar-edit').addEventListener('click', () => 
 document.querySelector('.profile__btn-edit').addEventListener('click', () => profilePopup.open());
 document.querySelector('.profile__btn-add').addEventListener('click', () => cardPopup.open());
 
-Promise.all([api.getProfile(), api.getCards()])
-  .then(([profile, cards]) => {
-    initProfile(profile);
-    initCards(cards, viewer);
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([userInfoResponse, cardsResponse]) => {
+    userInfo.setUserFields(userInfoResponse);
+    initCards(cardsResponse, viewer, userInfoResponse._id);
   })
   .catch(showError);
