@@ -1,8 +1,47 @@
-/** Манипуляции с карточками - добавление, удаление, лайки */
-
 import api from './Api';
 import userInfo from './UserInfo';
 import { showError } from './utils';
+
+/*
+// CARD - НАЧАЛО
+export default class Card {
+    constructor(data, cardSelector, clickPreviewImage) {
+      this._image = data.image; // Приватное поле для наполнения конкретной карточки ее ссылкой на картинку
+      this._caption = data.caption; // Приватное поле для наполнения конкретной карточки ее подписью
+  
+      this._cardSelector = cardSelector; // Селектор шаблона разметки, куда мы вставим карточку
+      this._clickPreviewImage = clickPreviewImage; // Обработчик клика по картинке => чтобы на этой карточке сработала функция открытия попапа
+    }
+}
+
+  // CОЗДАДИМ ШАБЛОН РАЗМЕТКИ КАРТОЧКИ (наполнять разметку данными и публиковать карточку на странице будем другими методами)
+  _getTemplate() {
+    // Заберем шаблон из HTML и клонируем его элемент:
+    const cardElement = document
+    .querySelector(this._cardSelector) // Тут селектор шаблона разметки: он попадает сюда как аргумент через конструктор выше
+    .content
+    .querySelector('.element')
+    .cloneNode(true);
+
+    // Вернем DOM-элемент карточки:
+    return cardElement;
+  }
+*/
+
+
+
+
+
+
+
+
+
+// ФАЙЛ CARD
+/** Манипуляции с карточками - добавление, удаление, лайки */
+
+//import api from './Api';
+//import userInfo from './UserInfo';
+//import { showError } from './utils';
 
 const cardsHolder = document.querySelector('.cards__list');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
@@ -94,13 +133,17 @@ export const initCards = (cards, viewer, userId) => {
 
 
 
-// КЛАСС ДЛЯ ОБРАБОТКИ КАРТОЧЕК
+
+
 /*
+// КЛАСС ДЛЯ ОБРАБОТКИ КАРТОЧЕК
+
 export default class Card {
   // КОНСТРУКТОР
   constructor(data, cardSelector, clickPreviewImage) {
     this._image = data.image; // Приватные поля для наполнения конкретной карточки
     this._caption = data.caption; // Приватные поля для наполнения конкретной карточки
+
     this._cardSelector = cardSelector; // Селектор шаблона разметки, куда вставится карточка
     this._clickPreviewImage = clickPreviewImage; // Обработчик клика по картинке => чтобы на этой карточке сработала функция открытия попапа
   }
@@ -126,6 +169,7 @@ export default class Card {
 
     // Объявим классовую переменную для картинки карточки, чтобы не искать картинку несколько раз:
     this._cardImage = this._element.querySelector('.element__image');
+
     // Объявлю классовую переменную this._likeButton (= сделаю ее полем класса), чтобы искать этот элемент только 1 раз:
     this._likeButton = this._element.querySelector('.element__like-button');
 
