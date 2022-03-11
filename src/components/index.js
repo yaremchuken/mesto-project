@@ -2,13 +2,14 @@ import '../styles/index.css';
 import api from './Api';
 import { addToHolder, createCard, initCards } from './card';
 import { selectors } from './constants';
+import FormValidator from './FormValidator';
 import PopupWithForm from './PopupWithForm';
 import PopupWithImage from './PopupWithImage';
 import userInfo from './UserInfo';
 import { showError } from './utils';
-import { enableValidation } from './validate';
 
-enableValidation(selectors);
+
+// enableValidation(selectors);
 
 const viewer = new PopupWithImage('#viewer-popup');
 viewer.setEventListeners();
@@ -37,6 +38,10 @@ const cardPopup = new PopupWithForm('#card-popup', (popupSelector) => {
     addToHolder(createCard(data._id, title, link, [], viewer));
   });
 });
+
+new FormValidator(selectors, '#avatar-popup').enableValidation()
+new FormValidator(selectors, '#profile-popup').enableValidation()
+new FormValidator(selectors, '#card-popup').enableValidation()
 
 document.querySelector('.profile__avatar-edit').addEventListener('click', () => avatarPopup.open());
 document.querySelector('.profile__btn-edit').addEventListener('click', () => profilePopup.open());
