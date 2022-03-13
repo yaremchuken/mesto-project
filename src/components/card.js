@@ -144,10 +144,12 @@ export default class Card {
 
 
 
+/*
+СТАРОЕ
 
 // ФАЙЛ CARD, КОТОРЫЙ БЫЛ У ЖЕНИ
 
-/** Манипуляции с карточками - добавление, удаление, лайки */
+// Манипуляции с карточками - добавление, удаление, лайки 
 
 //import api from './Api';
 //import userInfo from './UserInfo';
@@ -242,7 +244,7 @@ export const initCards = (cards, viewer, userId) => {
 
 
 
-// КЛАСС CARD, КОТОРЫЙ СНАЧАЛА БЫЛ У ДАШИ
+// КЛАСС CARD, КОТОРЫЙ БЫЛ У ДАШИ
 
 export default class Card {
   // КОНСТРУКТОР
@@ -323,4 +325,5 @@ export default class Card {
   }
 
 } // Конец класса Card
+
 */
