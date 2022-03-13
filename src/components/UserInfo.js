@@ -10,12 +10,16 @@ class UserInfo {
     this._avatarSelector = avatarSelector;
   }
 
+  setUserId(userId) {
+    this._userId = userId;
+  }
+
   getUserId() {
     return this._userId;
   }
 
   getUserInfo() {
-    return api.getUserInfo().then(({ _id }) => (this._userId = _id));
+    return api.getUserInfo();
   }
 
   setUserInfo({ name, about }) {

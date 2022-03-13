@@ -1,7 +1,6 @@
 import { selectors } from './constants';
 import Popup from './Popup';
 import { showError } from './utils';
-import { checkFormValid, toggleSubmitBtnState } from './validate';
 
 /** Попап формы */
 export default class PopupWithForm extends Popup {
@@ -18,10 +17,6 @@ export default class PopupWithForm extends Popup {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      if (!checkFormValid(e.target, selectors)) {
-        return;
-      }
-
       const submitBtn = e.submitter;
       submitBtn.textContent = 'Сохранение...';
 
@@ -34,7 +29,6 @@ export default class PopupWithForm extends Popup {
 
   open() {
     const form = document.querySelector(this._popupSelector).querySelector(selectors.formSelector);
-    toggleSubmitBtnState(form, selectors);
     super.open();
   }
 

@@ -1,26 +1,25 @@
 import Card from './Card.js';
 
 // Класс Section для добавления карточек в верстку
-
 export default class Section {
-    constructor( { renderer }, containerSelector ) {
-        this._renderer = renderer;
-        this._containerSelector = document.querySelector(containerSelector);
-    }
+  constructor({ renderer }, containerSelector) {
+    this._renderer = renderer;
+    this._containerSelector = document.querySelector(containerSelector);
+  }
 
-    // Публичная функция для "ручного" добавления карточки
-    addItem(item) { // В item должен лежать DOM-элемент, который мы передаем в контейнер
-        this._containerSelector.prepend(item);
-    }
+  // Публичная функция для "ручного" добавления карточки
+  addItem = (data, viewer) => {
+    const card = new Card(data, '#card-template', () => {
+      viewer.open(data.link, data.name);
+    });
+    const generated = card.generateCard();
+    this._renderer(generated, this._containerSelector);
+  };
 
-    // Публичная функция для отрисовки массива карточек, которые придут с сервера. А они уже последовательно будут передаваться в контейнер через функцию addItem()
-    renderItems() {
-        this._renderer.forEach((item) => { // Я ЗАПУТАЛАСЬ, КАК ПЕРЕДАТЬ СЮДА С СЕРВЕРА НАЧАЛЬНЫЙ МАССИВ КАРТОЧЕК?
-            const card = new Card(item, '#card-template', handleCardClick);
-            const cardElement = card.generateCard();
-            this._addItem(cardElement);
-
-            return cardElement;
-        });
-    }
+  // Публичная функция для отрисовки массива карточек, которые придут с сервера. А они уже последовательно будут передаваться в контейнер через функцию addItem()
+  renderItems(cardsData, viewer) {
+    cardsData.forEach((data) => {
+      this.addItem(data, viewer);
+    });
+  }
 }
