@@ -2,31 +2,133 @@ import api from './Api';
 import userInfo from './UserInfo';
 import { showError } from './utils';
 
-/*
-// CARD - НАЧАЛО
+// CARD ИТОГОВЫЙ
+
 export default class Card {
-    constructor(data, cardSelector, clickPreviewImage) {
-      this._image = data.image; // Приватное поле для наполнения конкретной карточки ее ссылкой на картинку
-      this._caption = data.caption; // Приватное поле для наполнения конкретной карточки ее подписью
-  
-      this._cardSelector = cardSelector; // Селектор шаблона разметки, куда мы вставим карточку
-      this._clickPreviewImage = clickPreviewImage; // Обработчик клика по картинке => чтобы на этой карточке сработала функция открытия попапа
-    }
-}
+  // Идентификатор карточки
+  // _id;
 
-  // CОЗДАДИМ ШАБЛОН РАЗМЕТКИ КАРТОЧКИ (наполнять разметку данными и публиковать карточку на странице будем другими методами)
+  // Ссылка на картинку
+  // _link;
+
+  // Подпись к картинке
+  // _name;
+
+  // Шаблон разметки карточки
+  // _templateSelector;
+
+  // Кнопка переключения лайка
+  // _likeButton;
+
+  // Лайки карточки
+  // _likes;
+
+  // Обработчик клика по картинке
+  // _handleCardClick;
+
+  // Можно ли удалить карточку
+  // _disposable;
+
+  constructor(data, templateSelector, handleCardClick) {
+    this._id = data.id;
+    this._link = data.link; // Картинка карточки
+    this._name = data.name; // Подпись к карточке
+    this._likes = data.likes;
+    this._disposable = data.owner._id === userInfo.getUserId();
+
+    this._templateSelector = templateSelector; // Селектор шаблона разметки, куда вставится карточка
+    this._handleCardClick = handleCardClick; // Обработчик клика по картинке => чтобы на этой карточке сработала функция открытия попапа
+  }
+
+  // Создадим шаблон разметки карточки
   _getTemplate() {
-    // Заберем шаблон из HTML и клонируем его элемент:
-    const cardElement = document
-    .querySelector(this._cardSelector) // Тут селектор шаблона разметки: он попадает сюда как аргумент через конструктор выше
-    .content
-    .querySelector('.element')
-    .cloneNode(true);
-
-    // Вернем DOM-элемент карточки:
+    const cardElement = document.querySelector(this._templateSelector).content.querySelector('.card').cloneNode(true); 
     return cardElement;
   }
-*/
+
+
+  // Удаление карточки
+  _dropCard() {
+    api
+      .deleteCard(this._id)
+      .then((_) => this._element.closest('.card').remove()) 
+      .catch(showError);
+
+      // this._element = null; // ЧТОБ УДАЛИТЬ ВЕРСТКУ КАРТОЧКИ ИЗ ОПЕРАТИВНОЙ ПАМЯТИ
+  }
+
+  // Переключение лайка
+    _toggleLike() {
+      if (this._likeButton.classList.contains('card__btn-like_active')) { // КАК МЫ ПОЛУЧАЕМ ДОСТУП К this._likeButton?
+        api
+          .unlikeCard(this._id)
+          .then((data) => {
+            this._likeButton.classList.remove('card__btn-like_active');
+            this._reloadLikes(data.likes.length);
+          })
+          .catch(showError);
+      } else {
+        api
+          .likeCard(this._id)
+          .then((data) => {
+            this._likeButton.classList.add('card__btn-like_active');
+            this._reloadLikes(data.likes.length);
+          })
+          .catch(showError);
+      }
+    }
+
+    _reloadLikes(likes) {
+      this._element.querySelector('.card__likes').textContent = likes;
+    }
+
+    // Генератор элемента карточки (публичный)
+    generateCard() {
+      this._element = this._getTemplate();
+      this._likeButton = this._element.querySelector('.card__btn-like');
+      this._cardImage = this._element.querySelector('.card__image');
+
+      // Наполним карточку содержимым
+      this._cardImage.src = this._link;
+      this._cardImage.alt = this._name;
+      this._element.querySelector('.card__title').textContent = this._name;
+
+      this._setEventListeners();
+
+      if (this._likes?.find((like) => like._id === userInfo.getUserId())) {
+        cardElement.querySelector('.card__btn-like').classList.add('card__btn-like_active');
+      }
+
+      this._reloadLikes(this._likes?.length ?? 0);
+
+      if (this._disposable) {
+        const removeBtn = cardElement.querySelector('.card__btn-remove');
+        removeBtn.addEventListener('click', this._dropCard);
+        removeBtn.classList.add('card__btn-remove_visible');
+      }
+
+      return this._element;
+    }
+
+
+  // Добавление слушателей
+  _setEventListeners() {
+    // Переключение лайка
+    this._likeButton.addEventListener('click', () => {
+      this._toggleLike();
+    });
+
+    // Удаление карточки
+    this._element.querySelector('.card__btn-remove').addEventListener('click', () => {
+      this._dropCard();
+    });
+
+    // Слушатель кликов по картинке -> вызов функции открытия попапа-3:
+    this._cardImage.addEventListener('click', () => {
+    this._handleCardClick(this._link, this._name);
+    });
+  }    
+}
 
 
 
@@ -36,7 +138,15 @@ export default class Card {
 
 
 
-// ФАЙЛ CARD
+
+
+
+
+
+
+
+// ФАЙЛ CARD, КОТОРЫЙ БЫЛ У ЖЕНИ
+
 /** Манипуляции с карточками - добавление, удаление, лайки */
 
 //import api from './Api';
@@ -132,11 +242,7 @@ export const initCards = (cards, viewer, userId) => {
 
 
 
-
-
-
-/*
-// КЛАСС ДЛЯ ОБРАБОТКИ КАРТОЧЕК
+// КЛАСС CARD, КОТОРЫЙ СНАЧАЛА БЫЛ У ДАШИ
 
 export default class Card {
   // КОНСТРУКТОР
