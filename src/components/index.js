@@ -58,6 +58,22 @@ Promise.all([api.getUserInfo(), api.getCards()])
 
 
 
+
+
+
+
+
+
+
+
+  
+// Функция открытия попапа с картинкой по клику по карточке
+function handleCardClick(link, name) {
+
+}
+
+
+
 //////// ФУНКЦИИ, СВЯЗАННЫЕ С РЕНДЕРОМ КАРТОЧКИ
 
 const createCard = (cardData) => {

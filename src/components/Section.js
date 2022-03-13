@@ -15,12 +15,12 @@ export default class Section {
 
     // Публичная функция для отрисовки массива карточек, которые придут с сервера. А они уже последовательно будут передаваться в контейнер через функцию addItem()
     renderItems() {
-        this._renderer.forEach((item) => {
+        this._renderer.forEach((item) => { // Я ЗАПУТАЛАСЬ, КАК ПЕРЕДАТЬ СЮДА С СЕРВЕРА НАЧАЛЬНЫЙ МАССИВ КАРТОЧЕК?
             const card = new Card(item, '#card-template', handleCardClick);
             const cardElement = card.generateCard();
             this._addItem(cardElement);
 
             return cardElement;
-        }
+        });
     }
 }
