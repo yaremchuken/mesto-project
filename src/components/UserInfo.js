@@ -1,8 +1,10 @@
 import api from './Api';
-import { showError } from './utils';
+import { showError } from '../utils/utils';
 
 class UserInfo {
-  _userId;
+  _id;
+  _name;
+  _about;
 
   constructor({ userNameSelector, userAboutSelector, avatarSelector }) {
     this._userNameSelector = userNameSelector;
@@ -10,26 +12,30 @@ class UserInfo {
     this._avatarSelector = avatarSelector;
   }
 
-  setUserId(userId) {
-    this._userId = userId;
+  getId() {
+    return this._id;
   }
 
-  getUserId() {
-    return this._userId;
+  getName() {
+    return this._name;
   }
 
-  getUserInfo() {
-    return api.getUserInfo();
+  getAbout() {
+    return this._about;
   }
 
-  setUserInfo({ name, about }) {
+  updateUserInfo({ name, about }) {
     return api
       .updateUserInfo({ name, about })
       .catch(showError)
       .then(() => this.setUserFields({ name, about }));
   }
 
-  setUserFields({ name, about, avatar }) {
+  setUserFields({ _id, name, about, avatar }) {
+    this._id = _id;
+    this._name = name;
+    this._about = about;
+
     document.querySelector(this._userNameSelector).textContent = name;
     document.querySelector(this._userAboutSelector).textContent = about;
 

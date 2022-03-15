@@ -1,6 +1,6 @@
 import api from './Api';
 import userInfo from './UserInfo';
-import { showError } from './utils';
+import { showError } from '../utils/utils';
 
 export default class Card {
   constructor(data, templateSelector, handleCardClick) {
@@ -8,7 +8,7 @@ export default class Card {
     this._link = data.link; // Картинка карточки
     this._name = data.name; // Подпись к карточке
     this._likes = data.likes;
-    this._disposable = data.owner._id === userInfo.getUserId();
+    this._disposable = data.owner._id === userInfo.getId();
 
     this._templateSelector = templateSelector; // Селектор шаблона разметки, куда вставится карточка
     this._handleCardClick = handleCardClick; // Обработчик клика по картинке => чтобы на этой карточке сработала функция открытия попапа
@@ -65,7 +65,7 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._element.querySelector('.card__title').textContent = this._name;
 
-    if (this._likes?.find((like) => like._id === userInfo.getUserId())) {
+    if (this._likes?.find((like) => like._id === userInfo.getId())) {
       this._element.querySelector('.card__btn-like').classList.add('card__btn-like_active');
     }
 
