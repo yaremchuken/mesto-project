@@ -1,8 +1,8 @@
 /** Отображение/скрытие попапа */
 export default class Popup {
   constructor(popupSelector) {
-    this._popupSelector = popupSelector;
-    this._popup = document.querySelector(this._popupSelector);
+    this._popup = document.querySelector(popupSelector);
+    this._handleClose = (evt) => this._handleEscClose(evt);
   }
 
   setEventListeners() {
@@ -18,12 +18,12 @@ export default class Popup {
 
   open() {
     this._popup.classList.add('popup_opened');
-    document.addEventListener('keydown', (evt) => this._handleEscClose(evt));
+    document.addEventListener('keydown', this._handleClose);
   }
 
   close() {
     this._popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', (evt) => this._handleEscClose(evt));
+    document.removeEventListener('keydown', this._handleClose);
   }
 
   _handleEscClose(evt) {
