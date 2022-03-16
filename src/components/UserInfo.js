@@ -1,15 +1,10 @@
-import api from './Api';
-import { showError } from '../utils/utils';
-
-class UserInfo {
-  _id;
-  _name;
-  _about;
-
-  constructor({ userNameSelector, userAboutSelector, avatarSelector }) {
+export default class UserInfo {
+  constructor({ userNameSelector, userAboutSelector, avatarSelector }, api, showError) {
     this._userNameSelector = userNameSelector;
     this._userAboutSelector = userAboutSelector;
     this._avatarSelector = avatarSelector;
+    this._api = api;
+    this._showError = showError;
   }
 
   getId() {
@@ -25,9 +20,9 @@ class UserInfo {
   }
 
   updateUserInfo({ name, about }) {
-    return api
+    return this._api
       .updateUserInfo({ name, about })
-      .catch(showError)
+      .catch(this._showError)
       .then(() => this.setUserFields({ name, about }));
   }
 
@@ -44,11 +39,3 @@ class UserInfo {
     }
   }
 }
-
-const userInfo = new UserInfo({
-  userNameSelector: '.profile__title',
-  userAboutSelector: '.profile__subtitle',
-  avatarSelector: '.profile__avatar-img',
-});
-
-export default userInfo;

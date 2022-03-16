@@ -1,15 +1,15 @@
-import { selectors } from '../utils/constants';
 import Popup from './Popup';
-import { showError } from '../utils/utils';
 
 /** Попап формы */
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, submitCallback, onOpenCallback) {
+  constructor(popupSelector, submitCallback, showError, onOpenCallback) {
     super(popupSelector);
 
-    this._form = this._popup.querySelector(selectors.formSelector);
+    this._form = this._popup.querySelector('.popup__form');
     this._onOpenCallback = onOpenCallback;
     this._submitCallback = submitCallback;
+
+    this._showError = showError;
 
     this.setEventListeners();
   }
@@ -24,7 +24,7 @@ export default class PopupWithForm extends Popup {
       submitBtn.textContent = 'Сохранение...';
 
       this._submitCallback(this._getInputValues())
-        .catch(showError)
+        .catch(this._showError)
         .then(() => this.close())
         .finally(() => (submitBtn.textContent = 'Сохранить'));
     });
@@ -43,12 +43,12 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    return Array.from(this._popup.querySelectorAll(selectors.inputSelector)).map((input) => {
+    return Array.from(this._popup.querySelectorAll('.popup__input')).map((input) => {
       return { id: input.id, value: input.value };
     });
   }
 
   _clearFormFields() {
-    this._popup.querySelectorAll(selectors.inputSelector).forEach((input) => (input.value = ''));
+    this._popup.querySelectorAll('.popup__input').forEach((input) => (input.value = ''));
   }
 }

@@ -1,14 +1,15 @@
-import api from './Api';
-import userInfo from './UserInfo';
-import { showError } from '../utils/utils';
-
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  //TODO: Передаём api и showError
+  constructor(data, templateSelector, handleCardClick, ownerId, api, showError) {
     this._id = data._id;
     this._link = data.link; // Картинка карточки
     this._name = data.name; // Подпись к карточке
     this._likes = data.likes;
-    this._disposable = data.owner._id === userInfo.getId();
+    this._ownerId = ownerId;
+    this._disposable = data.owner._id === ownerId;
+
+    this._api = api;
+    this._showError = showError;
 
     this._templateSelector = templateSelector; // Селектор шаблона разметки, куда вставится карточка
     this._handleCardClick = handleCardClick; // Обработчик клика по картинке => чтобы на этой карточке сработала функция открытия попапа
@@ -22,31 +23,30 @@ export default class Card {
 
   // Удаление карточки
   _dropCard() {
-    api
+    this._api
       .deleteCard(this._id)
       .then(() => this._element.closest('.card').remove())
-      .catch(showError);
+      .catch(this._showError);
   }
 
   // Переключение лайка
   _toggleLike() {
     if (this._likeButton.classList.contains('card__btn-like_active')) {
-      // КАК МЫ ПОЛУЧАЕМ ДОСТУП К this._likeButton?
-      api
+      this._api
         .unlikeCard(this._id)
         .then((data) => {
           this._likeButton.classList.remove('card__btn-like_active');
           this._reloadLikes(data.likes.length);
         })
-        .catch(showError);
+        .catch(this._showError);
     } else {
-      api
+      this._api
         .likeCard(this._id)
         .then((data) => {
           this._likeButton.classList.add('card__btn-like_active');
           this._reloadLikes(data.likes.length);
         })
-        .catch(showError);
+        .catch(this._showError);
     }
   }
 
@@ -65,7 +65,7 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._element.querySelector('.card__title').textContent = this._name;
 
-    if (this._likes?.find((like) => like._id === userInfo.getId())) {
+    if (this._likes?.find((like) => like._id === this._ownerId)) {
       this._element.querySelector('.card__btn-like').classList.add('card__btn-like_active');
     }
 
