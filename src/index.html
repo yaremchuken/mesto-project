@@ -14,7 +14,11 @@
       <main class="content">
         <section class="profile">
           <div class="profile__avatar">
-            <img src="<%=require('./images/profile__avatar.jpeg')%>" alt="Профиль пользователя" class="profile__avatar-img" />
+            <img
+              src="<%=require('./images/profile__avatar.jpeg')%>"
+              alt="Профиль пользователя"
+              class="profile__avatar-img"
+            />
             <div class="profile__avatar-edit"></div>
           </div>
 
@@ -49,9 +53,16 @@
       <section id="avatar-popup" class="popup overlay">
         <div class="popup__container">
           <h2 class="popup__heading">Обновить аватар</h2>
-          <form name="popup__form" class="popup__form" novalidate>
+          <form name="avatar-popup__form" class="popup__form" novalidate>
             <fieldset class="popup__input-container">
-              <input type="url" id="avatar-link" name="avatar-link" class="popup__input" placeholder="Ссылка на аватар" required />
+              <input
+                type="url"
+                id="avatar-link"
+                name="avatar-link"
+                class="popup__input"
+                placeholder="Ссылка на аватар"
+                required
+              />
               <span class="avatar-link-input-error popup__input-error"></span>
             </fieldset>
             <button type="submit" class="popup__btn-submit">Сохранить</button>
@@ -63,9 +74,18 @@
       <section id="profile-popup" class="popup overlay">
         <div class="popup__container">
           <h2 class="popup__heading">Редактировать профиль</h2>
-          <form name="popup__form" class="popup__form" novalidate>
+          <form name="profile-popup__form" class="popup__form" novalidate>
             <fieldset class="popup__input-container">
-              <input type="text" id="name" name="name" class="popup__input" placeholder="Имя" required minlength="2" maxlength="40" />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="popup__input"
+                placeholder="Имя"
+                required
+                minlength="2"
+                maxlength="40"
+              />
               <span class="name-input-error popup__input-error"></span>
               <input
                 type="text"
@@ -84,10 +104,11 @@
           <button type="button" class="popup__btn-close"></button>
         </div>
       </section>
+      
       <section id="card-popup" class="popup overlay">
         <div class="popup__container">
           <h2 class="popup__heading">Новое место</h2>
-          <form name="popup__form" class="popup__form" novalidate>
+          <form name="card-popup__form" class="popup__form" novalidate>
             <fieldset class="popup__input-container">
               <input
                 type="text"
