@@ -37,15 +37,9 @@ export default class FormValidator {
     return this._inputList.some((input) => !input.validity.valid);
   }
 
-  // Функция проверки: а если все поля формы пустые?
-  _hasNotInputValues() {
-    return this._inputList.every((input) => {
-      return input.value.length === 0;
-    });
-  }
 
   _toggleSubmitBtnState() {
-    if (this._hasInvalidInput() || this._hasNotInputValues()) {
+    if (this._hasInvalidInput()) {
       this._submitButton.classList.add(this._inactiveButtonClass);
       this._submitButton.disabled = true;
     } else {
@@ -54,12 +48,38 @@ export default class FormValidator {
     }
   }
 
-  enableValidation() {
-    this._inputList.forEach((input) => {
+  _setEventListeners() {
+
+    this._form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.disabled = true;
+    
+    });
+
+
+    this._inputList.forEach(input => {
       input.addEventListener('input', () => {
         this._checkinputValidity(input);
         this._toggleSubmitBtnState();
       });
     });
+
+    this._toggleSubmitBtnState();
+  };
+
+  enableValidation() {
+    this._setEventListeners();
   }
+
+  validateOnOpen() {
+    this._toggleSubmitBtnState();
+  }
+
 }
+
+
+
+
+
+

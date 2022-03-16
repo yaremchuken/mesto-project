@@ -76,14 +76,35 @@ const cardPopup = new PopupWithForm(
   showError
 );
 
-document.querySelector('.profile__avatar-edit').addEventListener('click', () => avatarPopup.open());
-document.querySelector('.profile__btn-edit').addEventListener('click', () => profilePopup.open());
-document.querySelector('.profile__btn-add').addEventListener('click', () => cardPopup.open());
 
 /** Валидаторы */
-new FormValidator(selectors, '#avatar-popup').enableValidation();
-new FormValidator(selectors, '#profile-popup').enableValidation();
-new FormValidator(selectors, '#card-popup').enableValidation();
+const avatarValidator = new FormValidator(selectors, '#avatar-popup');
+const profileValidator = new FormValidator(selectors, '#profile-popup');
+const cardValidator = new FormValidator(selectors, '#card-popup');
+
+avatarValidator.enableValidation();
+profileValidator.enableValidation();
+cardValidator.enableValidation();
+
+
+
+document.querySelector('.profile__avatar-edit').addEventListener('click', () => {
+  avatarPopup.open();
+  avatarValidator.validateOnOpen();
+ });
+
+
+document.querySelector('.profile__btn-edit').addEventListener('click', () => {
+  profilePopup.open();
+  profileValidator.validateOnOpen();
+});
+
+document.querySelector('.profile__btn-add').addEventListener('click', () => {
+  cardPopup.open();
+  cardValidator.validateOnOpen();
+});
+
+
 
 /** Инициализация */
 Promise.all([api.getUserInfo(), api.getCards()])
