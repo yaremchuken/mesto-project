@@ -39,7 +39,7 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    this._clearForm();
+    this._clearFormFields();
   }
 
   _getInputValues() {
@@ -48,8 +48,7 @@ export default class PopupWithForm extends Popup {
     });
   }
 
-  _clearForm() {
+  _clearFormFields() {
     this._popup.querySelectorAll(selectors.inputSelector).forEach((input) => (input.value = ''));
-    this._popup.querySelectorAll(selectors.inputErrorSelector).forEach((input) => (input.textContent = ''));
   }
 }
