@@ -1,5 +1,4 @@
 export default class Card {
-  //TODO: Передаём api и showError
   constructor(data, templateSelector, handleCardClick, ownerId, api, showError) {
     this._id = data._id;
     this._link = data.link; // Картинка карточки
@@ -10,14 +9,14 @@ export default class Card {
 
     this._api = api;
     this._showError = showError;
-
-    this._templateSelector = templateSelector; // Селектор шаблона разметки, куда вставится карточка
     this._handleCardClick = handleCardClick; // Обработчик клика по картинке => чтобы на этой карточке сработала функция открытия попапа
+
+    this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.card');
   }
 
   // Создадим шаблон разметки карточки
   _getTemplate() {
-    const cardElement = document.querySelector(this._templateSelector).content.querySelector('.card').cloneNode(true);
+    const cardElement = this._cardTemplate.cloneNode(true);
     return cardElement;
   }
 
@@ -51,28 +50,31 @@ export default class Card {
   }
 
   _reloadLikes(likes) {
-    this._element.querySelector('.card__likes').textContent = likes;
+    this._likesDisplay.textContent = likes;
   }
 
   // Генератор элемента карточки (публичный)
   generateCard() {
     this._element = this._getTemplate();
+    this._likesDisplay = this._element.querySelector('.card__likes');
+
     this._likeButton = this._element.querySelector('.card__btn-like');
-    this._cardImage = this._element.querySelector('.card__image');
+    this._removeButton = this._element.querySelector('.card__btn-remove');
 
     // Наполним карточку содержимым
+    this._cardImage = this._element.querySelector('.card__image');
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector('.card__title').textContent = this._name;
 
     if (this._likes?.find((like) => like._id === this._ownerId)) {
-      this._element.querySelector('.card__btn-like').classList.add('card__btn-like_active');
+      this._likeButton.classList.add('card__btn-like_active');
     }
 
     this._reloadLikes(this._likes?.length ?? 0);
 
     if (this._disposable) {
-      this._element.querySelector('.card__btn-remove').classList.add('card__btn-remove_visible');
+      this._removeButton.classList.add('card__btn-remove_visible');
     }
 
     this._setEventListeners();
@@ -89,7 +91,7 @@ export default class Card {
 
     if (this._disposable) {
       // Удаление карточки
-      this._element.querySelector('.card__btn-remove').addEventListener('click', () => {
+      this._removeButton.addEventListener('click', () => {
         this._dropCard();
       });
     }
