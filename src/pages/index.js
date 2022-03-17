@@ -22,8 +22,8 @@ const userInfo = new UserInfo({
 
 const section = new Section(
   {
-    renderer: (card, container) => {
-      container.prepend(card);
+    renderer: (cardData) => {
+      return createCard(cardData).generateCard();
     },
   },
   '.cards__list'
@@ -65,7 +65,7 @@ const cardPopup = new PopupWithForm('#card-popup', (inputs) => {
   return api
     .uploadCard(name.value, link.value)
     .then((cardData) => {
-      section.addItem(createCard(cardData));
+      section.addItem(createCard(cardData).generateCard());
     })
     .catch(showError);
 });
@@ -98,7 +98,7 @@ document.querySelector('.profile__btn-add').addEventListener('click', () => {
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([userInfoResponse, cardsResponse]) => {
     userInfo.setUserFields(userInfoResponse);
-    section.renderItems(cardsResponse.reverse().map(createCard));
+    section.renderItems(cardsResponse.reverse());
   })
   .catch(showError);
 
