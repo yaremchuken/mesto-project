@@ -1,13 +1,11 @@
 export default class FormValidator {
   constructor(selectors, formSelector) {
-    this._formSelector = formSelector;
-    this._inputSelector = selectors.inputSelector;
-    this._submitButton = document.querySelector(this._formSelector).querySelector(selectors.submitButtonSelector);
+    this._form = document.querySelector(formSelector);
+    this._submitButton = this._form.querySelector(selectors.submitButtonSelector);
     this._inactiveButtonClass = selectors.inactiveButtonClass;
     this._inputErrorClass = selectors.inputErrorClass;
     this._errorClass = selectors.errorClass;
-    this._form = document.querySelector(this._formSelector);
-    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._inputList = Array.from(this._form.querySelectorAll(selectors.inputSelector));
   }
 
   _showInputError(input, errorMsg) {
