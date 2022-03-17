@@ -49,6 +49,6 @@ export default class PopupWithForm extends Popup {
   }
 
   _clearFormFields() {
-    this._inputs.forEach((input) => (input.value = ''));
+    this._form.reset();
   }
 }

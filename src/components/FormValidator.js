@@ -67,6 +67,7 @@ export default class FormValidator {
   }
 
   validateOnOpen() {
+    this._inputList.forEach((input) => this._hideInputError(input));
     this._toggleSubmitBtnState();
   }
 }

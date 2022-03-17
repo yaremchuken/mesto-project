@@ -6,15 +6,13 @@ export default class Section {
   }
 
   // Публичная функция для "ручного" добавления карточки
-  addItem = (card) => {
+  addItem = (cardData) => {
+    const card = this._renderer(cardData);
     this._containerElement.prepend(card);
   };
 
   // Публичная функция для отрисовки массива карточек, которые придут с сервера. А они уже последовательно будут передаваться в контейнер через функцию addItem()
   renderItems(cardDatas) {
-    const cards = cardDatas.map((cardData) => this._renderer(cardData));
-    cards.forEach((card) => {
-      this.addItem(card);
-    });
+    cardDatas.forEach((cardData) => this.addItem(cardData));
   }
 }

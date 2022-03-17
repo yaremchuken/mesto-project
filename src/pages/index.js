@@ -59,12 +59,7 @@ const profilePopup = new PopupWithForm(
 );
 
 const cardPopup = new PopupWithForm('#card-popup', (inputs) => {
-  return api
-    .uploadCard(inputs['title'], inputs['link'])
-    .then((cardData) => {
-      section.addItem(createCard(cardData).generateCard());
-    })
-    .catch(showError);
+  return api.uploadCard(inputs['title'], inputs['link']).then(section.addItem).catch(showError);
 });
 
 /** Валидаторы */
