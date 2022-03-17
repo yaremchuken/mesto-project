@@ -34,22 +34,18 @@ const viewer = new PopupWithImage('#viewer-popup');
 viewer.setEventListeners();
 
 const avatarPopup = new PopupWithForm('#avatar-popup', (inputs) => {
-  const link = inputs['avatar-link'];
   return api
-    .updateAvatar(link)
-    .then(() => userInfo.setAvatar(link))
+    .updateAvatar(inputs['avatar-link'])
+    .then((data) => userInfo.setUserInfo(data))
     .catch(showError);
 });
 
 const profilePopup = new PopupWithForm(
   '#profile-popup',
   (inputs) => {
-    const name = inputs['name'];
-    const about = inputs['appointment'];
-
     return api
-      .updateUserInfo({ name, about })
-      .then(() => userInfo.setUserFields({ name, about }))
+      .updateUserInfo({ name: inputs['name'], about: inputs['appointment'] })
+      .then((data) => userInfo.setUserInfo(data))
       .catch(showError);
   },
   () => {
@@ -89,7 +85,7 @@ document.querySelector('.profile__btn-add').addEventListener('click', () => {
 /** Инициализация */
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([userInfoResponse, cardsResponse]) => {
-    userInfo.setUserFields(userInfoResponse);
+    userInfo.setUserInfo(userInfoResponse);
     section.renderItems(cardsResponse.reverse());
   })
   .catch(showError);

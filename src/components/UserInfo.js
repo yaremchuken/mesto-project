@@ -17,25 +17,13 @@ export default class UserInfo {
     return this._about;
   }
 
-  getAvatar() {
-    return this._avatar;
-  }
-
-  setUserFields({ _id, name, about, avatar }) {
+  setUserInfo({ _id, name, about, avatar }) {
     this._id = _id;
     this._name = name;
     this._about = about;
-    this._avatar = avatar;
 
     this._nameElement.textContent = name;
     this._aboutElement.textContent = about;
-
-    if (avatar) {
-      this.setAvatar(avatar);
-    }
-  }
-
-  setAvatar(avatar) {
     this._avatarElement.src = avatar;
   }
 }
