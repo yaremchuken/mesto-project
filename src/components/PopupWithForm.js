@@ -42,9 +42,10 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    return Array.from(this._inputs).map((input) => {
-      return { id: input.id, value: input.value };
-    });
+    this._formValues = {};
+    this._inputs.forEach((input) => (this._formValues[input.name] = input.value));
+
+    return this._formValues;
   }
 
   _clearFormFields() {

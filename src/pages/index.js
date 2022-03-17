@@ -34,18 +34,18 @@ const viewer = new PopupWithImage('#viewer-popup');
 viewer.setEventListeners();
 
 const avatarPopup = new PopupWithForm('#avatar-popup', (inputs) => {
-  const link = findById(inputs, 'avatar-link');
+  const link = inputs['avatar-link'];
   return api
-    .updateAvatar(link.value)
-    .then(() => userInfo.setAvatar(link.value))
+    .updateAvatar(link)
+    .then(() => userInfo.setAvatar(link))
     .catch(showError);
 });
 
 const profilePopup = new PopupWithForm(
   '#profile-popup',
   (inputs) => {
-    const name = findById(inputs, 'name').value;
-    const about = findById(inputs, 'appointment').value;
+    const name = inputs['name'];
+    const about = inputs['appointment'];
 
     return api
       .updateUserInfo({ name, about })
@@ -59,11 +59,8 @@ const profilePopup = new PopupWithForm(
 );
 
 const cardPopup = new PopupWithForm('#card-popup', (inputs) => {
-  const name = findById(inputs, 'title');
-  const link = findById(inputs, 'link');
-
   return api
-    .uploadCard(name.value, link.value)
+    .uploadCard(inputs['title'], inputs['link'])
     .then((cardData) => {
       section.addItem(createCard(cardData).generateCard());
     })
