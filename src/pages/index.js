@@ -90,15 +90,46 @@ Promise.all([api.getUserInfo(), api.getCards()])
   })
   .catch(showError);
 
+
+
+ const toggleLike = (card) => {
+  if (card.getLikeButton().classList.contains('card__btn-like_active')) {
+    api
+      .unlikeCard(card.getID())
+      .then((data) => {
+        card.getLikeButton().classList.remove('card__btn-like_active');
+        card.reloadLikes(data.likes.length);
+      })
+      .catch(showError);
+  } else {
+    api
+      .likeCard(card.getID())
+      .then((data) => {
+        card.getLikeButton().classList.add('card__btn-like_active');
+        card.reloadLikes(data.likes.length);
+      })
+      .catch(showError);
+  }
+}
+
+ const dropCard = (card) => {
+  api
+    .deleteCard(card.getID())
+    .then(() => card.getElement().closest('.card').remove())
+    .catch(showError);
+}
+
+
 const createCard = (cardData) => {
   return new Card(
     cardData,
     '#card-template',
+    toggleLike,
+    dropCard,
     () => {
       viewer.open(cardData.link, cardData.name);
     },
-    userInfo.getId(),
-    api,
-    showError
+    userInfo.getId()
   );
 };
+

@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, templateSelector, handleCardClick, ownerId, api, showError) {
+  constructor(data, templateSelector, handleLike, dropCard, handleCardClick, ownerId) {
     this._id = data._id;
     this._link = data.link; // Картинка карточки
     this._name = data.name; // Подпись к карточке
@@ -7,8 +7,8 @@ export default class Card {
     this._ownerId = ownerId;
     this._disposable = data.owner._id === ownerId;
 
-    this._api = api;
-    this._showError = showError;
+    this._handleLike = handleLike;
+    this._dropCard = dropCard;
     this._handleCardClick = handleCardClick; // Обработчик клика по картинке => чтобы на этой карточке сработала функция открытия попапа
 
     this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.card');
@@ -20,37 +20,21 @@ export default class Card {
     return cardElement;
   }
 
-  // Удаление карточки
-  _dropCard() {
-    this._api
-      .deleteCard(this._id)
-      .then(() => this._element.closest('.card').remove())
-      .catch(this._showError);
-  }
 
-  // Переключение лайка
-  _toggleLike() {
-    if (this._likeButton.classList.contains('card__btn-like_active')) {
-      this._api
-        .unlikeCard(this._id)
-        .then((data) => {
-          this._likeButton.classList.remove('card__btn-like_active');
-          this._reloadLikes(data.likes.length);
-        })
-        .catch(this._showError);
-    } else {
-      this._api
-        .likeCard(this._id)
-        .then((data) => {
-          this._likeButton.classList.add('card__btn-like_active');
-          this._reloadLikes(data.likes.length);
-        })
-        .catch(this._showError);
-    }
-  }
-
-  _reloadLikes(likes) {
+  reloadLikes(likes) {
     this._likesDisplay.textContent = likes;
+  }
+
+  getLikeButton() {
+    return this._likeButton;
+  } 
+
+  getID() {
+    return this._id;
+  }
+
+  getElement() {
+    return this._element;
   }
 
   // Генератор элемента карточки (публичный)
@@ -71,7 +55,7 @@ export default class Card {
       this._likeButton.classList.add('card__btn-like_active');
     }
 
-    this._reloadLikes(this._likes?.length ?? 0);
+    this.reloadLikes(this._likes?.length ?? 0);
 
     if (this._disposable) {
       this._removeButton.classList.add('card__btn-remove_visible');
@@ -86,13 +70,13 @@ export default class Card {
   _setEventListeners() {
     // Переключение лайка
     this._likeButton.addEventListener('click', () => {
-      this._toggleLike();
+      this._handleLike(this);
     });
 
     if (this._disposable) {
       // Удаление карточки
       this._removeButton.addEventListener('click', () => {
-        this._dropCard();
+        this._dropCard(this);
       });
     }
 
