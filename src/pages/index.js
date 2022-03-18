@@ -108,33 +108,22 @@ Promise.all([api.getUserInfo(), api.getCards()])
 
 
  const toggleLike = (card) => {
-  if (card.isLiked(data)/*card.getLikeButton().classList.contains('card__btn-like_active')*/) {
+  if (card.isLiked()) {
     api
       .unlikeCard(card.getID())
       .then((data) => {
         card.updateLikes(data);
-        /*
-        card.getLikeButton().classList.remove('card__btn-like_active');
-        card.reloadLikes(data.likes.length); */
       })
       .catch(showError);
   } else {
     api
-    .likeCard(card.getId())
+    .likeCard(card.getID())
     .then((res) => {
         card.updateLikes(res)
     })
     .catch((err) => {
         console.log(err);
     });
-
-/*
-      .likeCard(card.getID())
-      .then((data) => {
-        card.getLikeButton().classList.add('card__btn-like_active');
-        card.reloadLikes(data.likes.length);
-      })
-      .catch(showError); */
   }
 }
 

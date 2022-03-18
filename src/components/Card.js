@@ -20,7 +20,7 @@ export default class Card {
     return cardElement;
   }
 
-  updateLikes() {
+  updateLikes(data) {
     this._likeButton.classList.remove('card__btn-like_active');
     this._reloadLikes(data.likes.length);
   }
@@ -30,11 +30,11 @@ export default class Card {
   }
 
   deleteCard() {
-    getElement().closest('.card').remove();
+    this._element.closest('.card').remove();
   }
 
 
-  reloadLikes(likes) {
+  _reloadLikes(likes) {
     this._likesDisplay.textContent = likes;
   }
 
@@ -43,9 +43,6 @@ export default class Card {
     return this._id;
   }
 
-  getElement() {
-    return this._element;
-  }
 
   // Генератор элемента карточки (публичный)
   generateCard() {
@@ -65,7 +62,7 @@ export default class Card {
       this._likeButton.classList.add('card__btn-like_active');
     }
 
-    this.reloadLikes(this._likes?.length ?? 0);
+    this._reloadLikes(this._likes?.length ?? 0);
 
     if (this._disposable) {
       this._removeButton.classList.add('card__btn-remove_visible');
