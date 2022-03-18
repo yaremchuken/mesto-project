@@ -99,14 +99,9 @@ Promise.all([api.getUserInfo(), api.getCards()])
   })
   .catch(showError);
 
-<<<<<<< HEAD
 
  const toggleLike = (card) => {
   if (card.isLiked()) {
-=======
-const toggleLike = (card) => {
-  if (card.getLikeButton().classList.contains('card__btn-like_active')) {
->>>>>>> e67d567409dad6fecd42f53da01d5dbc6012bb72
     api
       .unlikeCard(card.getID())
       .then((data) => {
@@ -125,12 +120,8 @@ const toggleLike = (card) => {
   }
 };
 
-<<<<<<< HEAD
 
  const dropCard = (card) => {
-=======
-const dropCard = (card) => {
->>>>>>> e67d567409dad6fecd42f53da01d5dbc6012bb72
   api
     .deleteCard(card.getID())
     .then(() => card.deleteCard())

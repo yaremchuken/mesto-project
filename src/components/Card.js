@@ -20,14 +20,19 @@ export default class Card {
     return cardElement;
   }
 
-  updateLikes(data) {
-    this._likeButton.classList.remove('card__btn-like_active');
-    this._reloadLikes(data.likes.length);
-  }
-
   isLiked() {
     return this._likeButton.classList.contains('card__btn-like_active') === true;
   }
+
+  updateLikes(data) {
+    if (!this.isLiked()) {
+      this._likeButton.classList.add('card__btn-like_active');
+    } else {
+      this._likeButton.classList.remove('card__btn-like_active');
+      this._reloadLikes(data.likes.length);
+    }
+  }
+
 
   deleteCard() {
     this._element.closest('.card').remove();
