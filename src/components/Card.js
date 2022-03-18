@@ -20,14 +20,24 @@ export default class Card {
     return cardElement;
   }
 
+  updateLikes() {
+    this._likeButton.classList.remove('card__btn-like_active');
+    this._reloadLikes(data.likes.length);
+  }
+
+  isLiked() {
+    return this._likeButton.classList.contains('card__btn-like_active') === true;
+  }
+
+  deleteCard() {
+    getElement().closest('.card').remove();
+  }
+
 
   reloadLikes(likes) {
     this._likesDisplay.textContent = likes;
   }
 
-  getLikeButton() {
-    return this._likeButton;
-  } 
 
   getID() {
     return this._id;
