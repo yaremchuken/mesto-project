@@ -29,8 +29,8 @@ export default class Card {
       this._likeButton.classList.add('card__btn-like_active');
     } else {
       this._likeButton.classList.remove('card__btn-like_active');
-      this._reloadLikes(data.likes.length);
     }
+    this._reloadLikes(data.likes.length);
   }
 
 
